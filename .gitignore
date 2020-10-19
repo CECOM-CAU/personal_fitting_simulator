@@ -10,8 +10,13 @@
 /captures
 .externalNativeBuild
 
-/.idea/*
+/calibration_server/calibration_chess/*
+/calibration_server/__pycache__/*
+/calibration_server/testFile/
 
+/.idea/*
+/calibration_server/.idea/
+/android_app/.idea/
 # Created by https://www.toptal.com/developers/gitignore/api/androidstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio
 
