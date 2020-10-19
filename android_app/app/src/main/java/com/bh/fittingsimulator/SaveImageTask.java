@@ -45,7 +45,26 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, Void> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.d("test","messagte");
         insertImage(calibrationActivity.getContentResolver(), bitmap, ""+System.currentTimeMillis(), "");
+        Log.d("test","messagte2");
+
+        Document doc;
+        String sUrl = "http://10.0.2.2:5000/fileUpload";
+        String sUrl2 =  "http://10.0.2.2:5000/";
+
+        Elements element;
+        Connection.Response res;
+        File file = new File(Environment.getExternalStorageDirectory() + "/myimage.png");
+        try {
+            res  = Jsoup.connect(sUrl).data("file",file.getName(), new FileInputStream(file)).method(Connection.Method.POST).execute();
+            element = res.parse().select("h1");
+            String returnString = element.get(0).text();
+            Log.d("abc", returnString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -64,8 +83,6 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, Void> {
                                            String title,
                                            String description) {
 
-        Document doc;
-        String sUrl = "http://127.0.0.1:5000/test";
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, title);
         values.put(MediaStore.Images.Media.DISPLAY_NAME, title);
@@ -77,8 +94,7 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, Void> {
 
         Uri url = null;
         String stringUrl = null;    /* value to be returned */
-        Elements element;
-        Connection.Response res;
+
         try {
             url = cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
@@ -90,10 +106,8 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, Void> {
                 try {
                     source.compress(Bitmap.CompressFormat.JPEG, 50, fOut);
                     fOut.close();
-                    res = Jsoup.connect(sUrl).data("file",file.getName(), new FileInputStream(file)).method(Connection.Method.GET).execute();
-                    element = res.parse().select("h1");
-                    String returnString = element.text();
-                    Log.d("abc", returnString);
+                    //res = Jsoup.connect(sUrl).data("file",file.getName(), new FileInputStream(file)).method(Connection.Method.POST).execute();
+                    //element = res.parse().select("h1");
                 } finally {
                     imageOut.close();
                 }

@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'File upload test'
+    return '<h1>File upload test</h1>'
 
 @app.route('/test')
 def testPage():
@@ -41,7 +41,7 @@ def getCalibrationData():
         f = request.files['file4']
         f.save("calibration_temp/" + secure_filename(f.filename))
         mtx, dist = calibration_chess.calibration_chess('calibration_temp/*.jpg')
-        return '<h1>mtx='+mtx+'</h1> <h1>dist='+dist+'</h1>'
+        return '<h1>'+mtx+'</h1> <h1>'+dist+'</h1>'
     return '<h1>GET methods</h1>'
 
 @app.route('/getModelData', methods=['GET'])
