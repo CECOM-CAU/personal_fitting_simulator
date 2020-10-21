@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="카테고리">
+        <item>상의</item>
+        <item>하의</item>
+        <item>원피스</item>
+    </string-array>
+
+</resources>

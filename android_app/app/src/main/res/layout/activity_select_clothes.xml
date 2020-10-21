@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/selectlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        app:title="Fitting Simulator"
+        app:titleTextColor="@color/white"
+        android:backgroundTint="@color/violet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/input_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/barunpenb"
+            android:text="직접 입력"
+            android:textSize="20dp"
+            android:onClick="clickInputButton"
+            android:background="@color/beige"/>
+
+        <Button
+            android:id="@+id/qr_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/input_button"
+            android:layout_weight="1"
+            android:fontFamily="@font/barunpenb"
+            android:text="QR 코드"
+            android:textSize="20dp"
+            android:onClick="clickQrButton"
+            android:background="@color/beige"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+            //qr코드 프레임
+        <LinearLayout
+            android:id="@+id/qr_frame"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/blue"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/barunpenb"
+                android:text="QR코드 프레임"
+                android:textSize="50dp" />
+
+        </LinearLayout>
+
+        //직접 입력 프레임
+        <LinearLayout
+            android:id="@+id/input_frame"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:entries="@array/카테고리"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/spinner_background"/>
+
+                <RadioGroup
+                    android:id="@+id/radiogroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical"
+                    android:checkedButton="@id/cm_radio">
+
+                    <RadioButton
+                        android:id="@+id/cm_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/barunpenb"
+                        android:text="cm"
+                        android:textSize="8dp"
+                        android:textColor="@color/black"></RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/inch_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/barunpenb"
+                        android:text="inch"
+                        android:textSize="8dp"
+                        android:textColor="@color/black"></RadioButton>
+                </RadioGroup>
+
+            </RelativeLayout>
+
+            <!-- 상의 측정 레이아웃-->
+            <RelativeLayout
+                android:id="@+id/top_frame"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상의 치수를 입력해주세요"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/barunpenb"
+                    android:layout_marginTop="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"></TextView>
+
+                <ImageView
+                    android:id="@+id/top_ic"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/title_tv"
+                    android:src="@drawable/ic_top"/>
+
+                <TextView
+                    android:id="@+id/waring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="단면 = 둘레/2"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="30dp"
+                    android:textColor="@color/red"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/top_ic"/>
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/waring"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:stretchColumns="0,1,2,3,4">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="어깨 길이"
+                            android:textSize="20dp"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/barunpenb"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="소매 길이"
+                            android:textSize="20dp"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/barunpenb"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="가슴 단면"
+                            android:textSize="20dp"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/barunpenb"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="소매 폭"
+                            android:textSize="20dp"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/barunpenb"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="총 길이"
+                            android:textSize="20dp"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/barunpenb"/>
+
+                    </TableRow>
+
+                    <TableRow>
+
+                       <EditText
+                           android:id="@+id/shoulder_et"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           />
+                        <EditText
+                            android:id="@+id/arm_et"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <EditText
+                            android:id="@+id/chest_et"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <EditText
+                            android:id="@+id/arm_width_et"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <EditText
+                            android:id="@+id/total_len_et"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </TableRow>
+
+                </TableLayout>
+
+
+
+                <Button
+                    android:id="@+id/ok_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="확인"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/barunpenb"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    ></Button>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>
