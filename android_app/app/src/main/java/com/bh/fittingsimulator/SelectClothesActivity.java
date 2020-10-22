@@ -1,5 +1,6 @@
 package com.bh.fittingsimulator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,31 +27,36 @@ public class SelectClothesActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
 
-        //레이아웃 변경 버튼 -input_btn:직접입력 -qr_btn:qr코드
-        Button input_btn=(Button) findViewById(R.id.input_button);
-        input_btn.setOnClickListener(new Button.OnClickListener(){
+        //레이아웃 변경 버튼 -input_btn -직접입력 페이지
+        final Button input_btn=(Button) findViewById(R.id.input_button);
+        input_btn.setSelected(!input_btn.isSelected());
+        input_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                input_btn.setSelected(!input_btn.isSelected());
                 changeView(1);
             }
         });
 
+        //레이아웃 변경 -qr_btn -qr코드 페이지
         Button qr_btn=(Button) findViewById(R.id.qr_button);
-        qr_btn.setOnClickListener(new Button.OnClickListener(){
+        qr_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                input_btn.setSelected(!input_btn.isSelected());
                 changeView(2);
             }
         });
 
         //확인 버튼 눌렀을때
-        /*Button ok_btn=(Button) findViewById(R.id.ok_button);
+        Button ok_btn=(Button) findViewById(R.id.ok_button);
         ok_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
 
         /*Spinner spinner=(Spinner)findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -62,15 +68,10 @@ public class SelectClothesActivity extends AppCompatActivity {
 
 
     }
-
-
-
     //레이아웃 변경 - 직접입력, qr코드
     public void changeView(int index){
-
         LinearLayout input_frame=(LinearLayout)findViewById(R.id.input_frame);
         LinearLayout qr_frame=(LinearLayout)findViewById(R.id.qr_frame);
-
         switch (index){
             case 1:
                 input_frame.setVisibility(LinearLayout.VISIBLE);
