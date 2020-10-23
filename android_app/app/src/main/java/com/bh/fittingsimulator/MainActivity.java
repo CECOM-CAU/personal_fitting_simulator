@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,150,0,200);
+        params.setMargins(0,150,0,230);
         mGLView = new MyGLSurfaceView(this);
         mGLView.setLayoutParams(params);
         //mGLView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //testcode
-        Button btn = findViewById(R.id.testbutton);
+        ImageButton btn = findViewById(R.id.testbutton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

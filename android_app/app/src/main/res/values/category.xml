@@ -5,5 +5,15 @@
         <item>하의</item>
         <item>원피스</item>
     </string-array>
+    <string-array name="top">
+        <item>상의</item>
+    </string-array>
+    <string-array name="bottom">
+        <item>바지</item>
+        <item>치마</item>
+    </string-array>
+    <string-array name="dress">
+        <item>원피스</item>
+    </string-array>
 
 </resources>
