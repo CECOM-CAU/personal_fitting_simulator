@@ -27,13 +27,14 @@
 
         <ImageButton
             android:id="@+id/testbutton"
-            android:layout_width="70dp"
+            android:layout_width="90dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
+            android:elevation="3dp"
             android:background="@drawable/button_background"
             android:src="@drawable/ic_hanger" />
     </RelativeLayout>

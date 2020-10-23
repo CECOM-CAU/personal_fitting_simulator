@@ -82,6 +82,7 @@
             android:layout_height="fill_parent"
             android:background="@color/white"
             android:orientation="vertical"
+            android:layout_marginTop="5dp"
             >
 
             <RelativeLayout
@@ -94,20 +95,33 @@
                 <Spinner
                     android:id="@+id/spinner"
                     android:entries="@array/카테고리"
-                    android:layout_width="120dp"
+                    android:layout_width="100dp"
                     android:layout_height="25dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/spinner_background"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="7dp"
+                    android:src="@android:drawable/arrow_down_float" />
+
                 <Spinner
-                    android:layout_width="120dp"
-                    android:layout_height="25dp"
                     android:id="@+id/spinner_sub"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="3dp"
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/spinner"
                     android:background="@drawable/spinner_background"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="195dp"
+                    android:layout_marginTop="7dp"
+                    android:src="@android:drawable/arrow_down_float" />
 
                 <!-- cm와 inch 라디오버튼-->
                 <RadioGroup
