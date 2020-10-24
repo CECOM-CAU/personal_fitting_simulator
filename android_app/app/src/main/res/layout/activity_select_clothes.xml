@@ -291,7 +291,7 @@
                         android:id="@+id/pants_title_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="하의 치수를 입력해주세요"
+                        android:text="바지 치수를 입력해주세요"
                         android:textSize="25dp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/barunpenb"
@@ -417,7 +417,124 @@
                         android:layout_marginBottom="30dp"
                         android:background="@drawable/button_background"
                         ></Button>
-                </RelativeLayout>
+                    </RelativeLayout>
+
+                    <!-- 치마 측정 레이아웃-->
+                    <RelativeLayout
+                        android:id="@+id/skirt_frame"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@id/radiogroup"
+                        >
+
+                        <TextView
+                            android:id="@+id/skirt_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="치마 치수를 입력해주세요"
+                            android:textSize="25dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/barunpenb"
+                            android:layout_marginTop="10dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"></TextView>
+
+                        <ImageView
+                            android:id="@+id/skirt_ic"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/skirt_title_tv"
+                            android:src="@drawable/ic_skirt"/>
+
+                        <TextView
+                            android:id="@+id/skirt_waring"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="단면 = 둘레/2"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="30dp"
+                            android:textColor="@color/red"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/skirt_ic"/>
+
+                        <!-- 치마 측정 수치 입력 표-->
+                        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/skirt_waring"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:stretchColumns="0,1,2,3">
+
+                            <TableRow>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="허리 단면"
+                                    android:textSize="20dp"
+                                    android:textAlignment="center"
+                                    android:fontFamily="@font/barunpenb"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="엉덩이 단면"
+                                    android:textSize="20dp"
+                                    android:textAlignment="center"
+                                    android:fontFamily="@font/barunpenb"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="밑단"
+                                    android:textSize="20dp"
+                                    android:textAlignment="center"
+                                    android:fontFamily="@font/barunpenb"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="총 길이"
+                                    android:textSize="20dp"
+                                    android:textAlignment="center"
+                                    android:fontFamily="@font/barunpenb"/>
+
+                            </TableRow>
+                            <TableRow>
+                                <EditText
+                                    android:id="@+id/skirt_waist"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <EditText
+                                    android:id="@+id/skirt_hip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <!--밑단-->
+                                <EditText
+                                    android:id="@+id/skirt_legwidth"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <EditText
+                                    android:id="@+id/skirt_total_len_et"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </TableRow>
+                        </TableLayout>
+
+                        <Button
+                            android:id="@+id/skirt_ok_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="확인"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/barunpenb"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="30dp"
+                            android:background="@drawable/button_background"
+                            ></Button>
+                    </RelativeLayout>
           </RelativeLayout>
 
         </RelativeLayout>

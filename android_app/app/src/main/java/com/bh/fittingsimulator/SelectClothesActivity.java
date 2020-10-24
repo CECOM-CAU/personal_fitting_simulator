@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -57,11 +58,52 @@ public class SelectClothesActivity extends AppCompatActivity {
             }
         });
 
-        //확인 버튼 눌렀을때 -상위 하위마다 다르게 하기(?)
+        //상의-확인 버튼 눌렀을때
         Button top_ok_btn=(Button) findViewById(R.id.top_ok_button);
         top_ok_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //메인화면으로
+                Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
+                startActivity(intent);
+
+                EditText top_shoulder=(EditText)findViewById(R.id.top_shoulder_et);//상의_어깨길이
+                Double.parseDouble(top_shoulder.getText().toString());//더블형
+                //Integer.parseInt(top_shoulder.getText().toString());//정수형
+
+                EditText top_arm=(EditText)findViewById(R.id.top_arm_et);//상의_팔길이
+                Double.parseDouble(top_arm.getText().toString());//더블형
+                //Integer.parseInt(top_arm.getText().toString());//정수형
+
+                EditText top_chest=(EditText)findViewById(R.id.top_chest_et);//상의_가슴단면
+                Double.parseDouble(top_chest.getText().toString());//더블형
+                //Integer.parseInt(top_chest.getText().toString());//정수형
+
+                EditText top_arm_width=(EditText)findViewById(R.id.top_arm_width_et);//상의_소매폭
+                Double.parseDouble(top_arm_width.getText().toString());//더블형
+                //Integer.parseInt(top_arm_width.getText().toString());//정수형
+
+                EditText top_total_len=(EditText)findViewById(R.id.top_total_len_et);//상의_총길이
+                Double.parseDouble(top_total_len.getText().toString());//더블형
+                //Integer.parseInt(top_total_len.getText().toString());//정수형
+            }
+        });
+        //바지-확인 버튼 눌렀을때
+        Button pants_ok_btn=(Button) findViewById(R.id.pants_ok_button);
+        pants_ok_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //메인화면으로
+                Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        //치마-확인 버튼 눌렀을때
+        Button skirt_ok_btn=(Button) findViewById(R.id.skirt_ok_button);
+        skirt_ok_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //메인화면으로
                 Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
                 startActivity(intent);
             }
@@ -69,8 +111,11 @@ public class SelectClothesActivity extends AppCompatActivity {
 
         final View top_frame=findViewById(R.id.top_frame);
         final View pants_frame=findViewById(R.id.pants_frame);
+        final View skirt_frame=findViewById(R.id.skirt_frame);
+
         top_frame.setVisibility(View.VISIBLE);
         pants_frame.setVisibility(View.INVISIBLE);
+        skirt_frame.setVisibility(View.INVISIBLE);
 
 
         final Spinner spinner_main=(Spinner)findViewById(R.id.spinner);
@@ -92,6 +137,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                             if(adspin2.getItem(position).equals("상의")){
                                 top_frame.setVisibility(View.VISIBLE);
                                 pants_frame.setVisibility(View.INVISIBLE);
+                                skirt_frame.setVisibility(View.INVISIBLE);
                             }
 
                         }
@@ -112,10 +158,14 @@ public class SelectClothesActivity extends AppCompatActivity {
                             if(adspin2.getItem(position).equals("바지")){
                                 top_frame.setVisibility(View.INVISIBLE);
                                 pants_frame.setVisibility(View.VISIBLE);
+                                skirt_frame.setVisibility(View.INVISIBLE);
                             }
                             //치마 레이아웃 나타나기
                             if(adspin2.getItem(position).equals("치마")){
-                                Toast.makeText(SelectClothesActivity.this, "치마 레이아웃 나타나기",Toast.LENGTH_SHORT).show();
+                               //Toast.makeText(SelectClothesActivity.this, "치마 레이아웃 나타나기",Toast.LENGTH_SHORT).show();
+                                top_frame.setVisibility(View.INVISIBLE);
+                                pants_frame.setVisibility(View.INVISIBLE);
+                                skirt_frame.setVisibility(View.VISIBLE);
                             }
 
                         }

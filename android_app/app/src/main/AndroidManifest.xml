@@ -19,6 +19,9 @@
         <activity android:name=".CalibrationActivity"></activity>
         <activity android:name=".PermissionActivity"></activity>
         <activity android:name=".SelectClothesActivity"></activity>
+        <activity android:name=".ModelingFailActivity"></activity>
+        <activity android:name=".ModeleingSuccessActivity"></activity>
+
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">

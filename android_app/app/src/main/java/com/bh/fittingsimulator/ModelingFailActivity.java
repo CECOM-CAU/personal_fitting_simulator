@@ -1,36 +1,23 @@
 package com.bh.fittingsimulator;
 
-import android.content.Intent;
-import android.opengl.GLSurfaceView;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bh.fittingsimulator.glrender.MyGLSurfaceView;
+public class ModelingFailActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
+    private ImageButton camera_btn;
 
-    private GLSurfaceView mGLView;
-    FrameLayout testLayout;
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        testLayout = findViewById(R.id.mainlayout);
+        setContentView(R.layout.activity_modeling_fail);
 
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -40,25 +27,17 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
+       camera_btn=findViewById(R.id.camera_button);
+       camera_btn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               //모델링 액티비티로 이동
+               Toast.makeText(ModelingFailActivity.this, "모델링 페이지로 이동하기",Toast.LENGTH_SHORT).show();
+           }
+       });
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,150,0,230);
-        mGLView = new MyGLSurfaceView(this);
-        mGLView.setLayoutParams(params);
-        //mGLView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
-        testLayout.addView(mGLView);
-
-
-        //testcode
-        ImageButton btn = findViewById(R.id.testbutton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,SelectClothesActivity.class);
-                startActivity(intent);
-            }
-        });
     }
+
 
     //툴바 설정 메뉴 만들기
     @Override
@@ -68,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override //툴바 메뉴
+    @Override //툴바 뒤로가기 설정
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case android.R.id.home:{//뒤로가기
+            case android.R.id.home:{
                 finish();
                 return true;
             }
@@ -86,6 +65,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
