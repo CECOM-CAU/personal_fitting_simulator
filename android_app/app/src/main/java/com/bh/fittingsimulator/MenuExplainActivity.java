@@ -7,18 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-public class ModeleingSuccessActivity extends AppCompatActivity {
-    private Button ok_btn; //확인버튼
+public class MenuExplainActivity extends AppCompatActivity {
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modeling_success);
+        setContentView(R.layout.activity_menu_explain);
 
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -28,17 +25,15 @@ public class ModeleingSuccessActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
-        //확인버튼
-        ok_btn=findViewById(R.id.ok_button);
-        ok_btn.setOnClickListener(new View.OnClickListener() {
+        ImageButton close_btn=findViewById(R.id.close_btn);
+        close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //메인 액티비티로 이동
-                Intent intent=new Intent(ModeleingSuccessActivity.this,MenuExplainActivity.class);
+                Intent intent=new Intent(MenuExplainActivity.this,MainActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
+
 
     }
 
@@ -47,25 +42,7 @@ public class ModeleingSuccessActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_option, menu);
-        return true;
-    }
 
-    @Override //툴바 뒤로가기 설정
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{
-                finish();
-                return true;
-            }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-        }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         testLayout.addView(mGLView);
 
 
-        //testcode
+        //확인버튼
         ImageButton btn = findViewById(R.id.testbutton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,SelectClothesActivity.class);
+                Intent intent=new Intent(MainActivity.this,ModeleingSuccessActivity.class);
                 startActivity(intent);
             }
         });
