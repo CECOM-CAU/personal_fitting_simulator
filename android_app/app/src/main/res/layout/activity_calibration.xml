@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:src="@android:drawable/ic_menu_camera"
+        android:layout_marginBottom="30dp"
         />
 
 </FrameLayout>
