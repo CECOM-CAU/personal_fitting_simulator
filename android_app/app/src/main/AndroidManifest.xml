@@ -21,6 +21,8 @@
         <activity android:name=".SelectClothesActivity"></activity>
         <activity android:name=".ModelingFailActivity"></activity>
         <activity android:name=".ModeleingSuccessActivity"></activity>
+        <activity android:name=".ModelingActivity"></activity>
+
         <activity android:name=".MenuExplainActivity"
             android:theme="@style/Transparent">
         </activity>
