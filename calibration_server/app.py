@@ -96,8 +96,13 @@ def getModelData():
             result_img, peopleLength=1630)
 
         cv2.imwrite('imgs/test.jpg', return_img)
-        print("arm_length=" + str(arm_length))
-        print("body_length=" + str(body_length))
+        #print("arm_length=" + str(arm_length))
+        #print("body_length=" + str(body_length))
+        print('arm:' + str(arm_length))
+        print('body: ' + str(body_length))
+        print('chest: ' + str(chest_length))
+        print('chestTobody: ' + str(chestToBody_length))
+        print('chestToShoulder:' + str(chestToShoulder_length))
 
         # plt.imshow()
         # plt.show()
