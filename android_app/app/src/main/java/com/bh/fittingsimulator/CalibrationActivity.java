@@ -1,6 +1,7 @@
 package com.bh.fittingsimulator;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.hardware.camera2.CameraAccessException;
@@ -58,6 +59,12 @@ public class CalibrationActivity extends AppCompatActivity  {
         initSurfaceView();
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent=new Intent(CalibrationActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     public void initSurfaceView() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);

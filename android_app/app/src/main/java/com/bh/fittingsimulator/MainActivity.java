@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.menu_modeling:{
+                Intent intent=new Intent(MainActivity.this,CalibrationActivity.class);
+                startActivity(intent);
+                finish();
                 Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
                 break;
             }
