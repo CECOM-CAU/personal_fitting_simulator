@@ -1,6 +1,6 @@
 package com.bh.fittingsimulator;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +12,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class ModelingActivity extends AppCompatActivity{
+public class CalibrationExplainActivity extends AppCompatActivity {
 
-    private ImageButton video_btn;
+    private ImageButton take_photo;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modeling);
+        setContentView(R.layout.activity_calibration_explain);
 
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -28,12 +28,14 @@ public class ModelingActivity extends AppCompatActivity{
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
-        video_btn=findViewById(R.id.videobutton);
-        video_btn.setOnClickListener(new View.OnClickListener() {
+        take_photo=findViewById(R.id.take_photo);
+        take_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //비디오 촬영
-                Toast.makeText(ModelingActivity.this, "비디오 촬영",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalibrationExplainActivity.this, "사진 촬영",Toast.LENGTH_SHORT).show();
+                //Calibration Activity로 넘어가기
+                Intent intent=new Intent(CalibrationExplainActivity.this,CalibrationActivity.class);
 
             }
         });
@@ -67,5 +69,4 @@ public class ModelingActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
