@@ -96,6 +96,8 @@ public class SelectClothesActivity extends AppCompatActivity {
                 //메인화면으로
                 Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
                 startActivity(intent);
+
+                finish();
             }
         });
         //치마-확인 버튼 눌렀을때
@@ -106,17 +108,34 @@ public class SelectClothesActivity extends AppCompatActivity {
                 //메인화면으로
                 Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
                 startActivity(intent);
+
+                finish();
+            }
+        });
+        //원피스-확인 버튼 눌렀을때
+        Button dress_ok_btn=(Button) findViewById(R.id.dress_ok_button);
+        dress_ok_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //메인화면으로
+                Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
+                startActivity(intent);
+
+                finish();
             }
         });
 
+
+        //옷 카테고리에서 선택했을 때 해당하는 프레임 보여주기
         final View top_frame=findViewById(R.id.top_frame);
         final View pants_frame=findViewById(R.id.pants_frame);
         final View skirt_frame=findViewById(R.id.skirt_frame);
+        final View dress_frame=findViewById(R.id.dress_frame);
 
         top_frame.setVisibility(View.VISIBLE);
         pants_frame.setVisibility(View.INVISIBLE);
         skirt_frame.setVisibility(View.INVISIBLE);
-
+        dress_frame.setVisibility(View.INVISIBLE);
 
         final Spinner spinner_main=(Spinner)findViewById(R.id.spinner);
         final Spinner spinner_sub=(Spinner)findViewById(R.id.spinner_sub);
@@ -138,6 +157,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                                 top_frame.setVisibility(View.VISIBLE);
                                 pants_frame.setVisibility(View.INVISIBLE);
                                 skirt_frame.setVisibility(View.INVISIBLE);
+                                dress_frame.setVisibility(View.INVISIBLE);
                             }
 
                         }
@@ -159,6 +179,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                                 top_frame.setVisibility(View.INVISIBLE);
                                 pants_frame.setVisibility(View.VISIBLE);
                                 skirt_frame.setVisibility(View.INVISIBLE);
+                                dress_frame.setVisibility(View.INVISIBLE);
                             }
                             //치마 레이아웃 나타나기
                             if(adspin2.getItem(position).equals("치마")){
@@ -166,6 +187,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                                 top_frame.setVisibility(View.INVISIBLE);
                                 pants_frame.setVisibility(View.INVISIBLE);
                                 skirt_frame.setVisibility(View.VISIBLE);
+                                dress_frame.setVisibility(View.INVISIBLE);
                             }
 
                         }
@@ -182,9 +204,12 @@ public class SelectClothesActivity extends AppCompatActivity {
                     spinner_sub.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            //바지 레이아웃 나타나기
+                            //원피스 레이아웃 나타나기
                             if(adspin2.getItem(position).equals("원피스")){
-                                Toast.makeText(SelectClothesActivity.this, "원피스 레이아웃 나타나기",Toast.LENGTH_SHORT).show();
+                                top_frame.setVisibility(View.INVISIBLE);
+                                pants_frame.setVisibility(View.INVISIBLE);
+                                skirt_frame.setVisibility(View.INVISIBLE);
+                                dress_frame.setVisibility(View.VISIBLE);
                             }
                         }
                         @Override

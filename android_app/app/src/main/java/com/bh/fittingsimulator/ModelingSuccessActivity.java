@@ -10,10 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class ModeleingSuccessActivity extends AppCompatActivity {
+public class ModelingSuccessActivity extends AppCompatActivity {
     private Button ok_btn; //확인버튼
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class ModeleingSuccessActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //메인 액티비티로 이동
-                Intent intent=new Intent(ModeleingSuccessActivity.this,MenuExplainActivity.class);
+                Intent intent=new Intent(ModelingSuccessActivity.this,MenuExplainActivity.class);
                 startActivity(intent);
                 finish();
             }

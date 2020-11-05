@@ -1,6 +1,7 @@
 package com.bh.fittingsimulator;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.hardware.camera2.CameraAccessException;
@@ -38,6 +39,7 @@ public class CalibrationActivity extends AppCompatActivity  {
     public CaptureRequest.Builder mPreviewBuilder;
     public CameraCaptureSession mSession;
     public int mDSI_height, mDSI_width;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,8 @@ public class CalibrationActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 takePicture();
+                Intent intent=new Intent(CalibrationActivity.this,ModelingActivity.class);
+                startActivity(intent);
             }
         });
 
