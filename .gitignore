@@ -13,7 +13,7 @@
 /calibration_server/calibration_chess/*
 /calibration_server/__pycache__/*
 /calibration_server/testFile/
-
+/calibration_server/pose_iter_160000.caffemodel
 /.idea/*
 /calibration_server/.idea/
 /android_app/.idea/
