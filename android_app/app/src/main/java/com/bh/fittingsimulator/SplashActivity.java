@@ -14,7 +14,13 @@ public class SplashActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                //카메라 왜곡보정 결과가 있는 경우
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                //카메라 왜곡보정 결과가 없는 경우
+                //Intent intent = new Intent(getApplicationContext(), CalibrationExplainActivity.class);
+
                 startActivity(intent);
                 finish();
             }

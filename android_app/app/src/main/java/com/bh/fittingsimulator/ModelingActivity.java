@@ -1,6 +1,8 @@
 package com.bh.fittingsimulator;
 
 
+import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +36,15 @@ public class ModelingActivity extends AppCompatActivity{
             public void onClick(View v) {
                 //비디오 촬영
                 Toast.makeText(ModelingActivity.this, "비디오 촬영",Toast.LENGTH_SHORT).show();
+
+                //성공한경우
+                Intent intent=new Intent(ModelingActivity.this,ModelingSuccessActivity.class);
+                startActivity(intent);
+
+                /*실패한 경우
+                Intent intent=new Intent(ModelingActivity.this,ModelingFailActivity.class);
+                startActivity(intent);
+                 */
 
             }
         });

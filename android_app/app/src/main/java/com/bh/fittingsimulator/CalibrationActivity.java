@@ -39,6 +39,7 @@ public class CalibrationActivity extends AppCompatActivity  {
     public CaptureRequest.Builder mPreviewBuilder;
     public CameraCaptureSession mSession;
     public int mDSI_height, mDSI_width;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,8 @@ public class CalibrationActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 takePicture();
+                Intent intent=new Intent(CalibrationActivity.this,ModelingActivity.class);
+                startActivity(intent);
             }
         });
 
