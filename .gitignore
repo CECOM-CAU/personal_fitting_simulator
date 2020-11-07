@@ -10,6 +10,9 @@
 /captures
 .externalNativeBuild
 
+
+
+/calibration_server/skeleton_det/pose_iter_160000.caffemodel
 /calibration_server/calibration_chess/*
 /calibration_server/__pycache__/*
 /calibration_server/testFile/
