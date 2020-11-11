@@ -66,7 +66,10 @@ public class SelectClothesActivity extends AppCompatActivity {
                 //메인화면으로
                 Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
                 startActivity(intent);
+                finish();
 
+                //상의 치수 변수들
+                /*
                 EditText top_shoulder=(EditText)findViewById(R.id.top_shoulder_et);//상의_어깨길이
                 Double.parseDouble(top_shoulder.getText().toString());//더블형
                 //Integer.parseInt(top_shoulder.getText().toString());//정수형
@@ -86,6 +89,8 @@ public class SelectClothesActivity extends AppCompatActivity {
                 EditText top_total_len=(EditText)findViewById(R.id.top_total_len_et);//상의_총길이
                 Double.parseDouble(top_total_len.getText().toString());//더블형
                 //Integer.parseInt(top_total_len.getText().toString());//정수형
+
+                 */
             }
         });
         //바지-확인 버튼 눌렀을때
@@ -259,12 +264,9 @@ public class SelectClothesActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
+            case R.id.setting:{
+                Intent intent=new Intent(SelectClothesActivity.this,SettingActivity.class);
+                startActivity(intent);
                 break;
             }
         }

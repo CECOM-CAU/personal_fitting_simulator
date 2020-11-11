@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이 자세로 촬영해주세요"
+        android:textColor="@color/white"
+        android:fontFamily="@font/barunpenb"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="120dp"
+        />
+
+
+    <Button
+        android:id="@+id/surface_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:background="@drawable/model_button_background"
+        android:src="@drawable/ic_video" />
+
+
+</RelativeLayout>

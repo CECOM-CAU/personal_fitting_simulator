@@ -9,12 +9,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class ModelingActivity extends AppCompatActivity{
 
-    private ImageButton video_btn;
+
+    private Button video_btn;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +36,14 @@ public class ModelingActivity extends AppCompatActivity{
                 //비디오 촬영
                 Toast.makeText(ModelingActivity.this, "비디오 촬영",Toast.LENGTH_SHORT).show();
 
-                //성공한경우
-                Intent intent=new Intent(ModelingActivity.this,ModelingSuccessActivity.class);
+                Intent intent=new Intent(ModelingActivity.this, ModelingVideoActivity.class);
                 startActivity(intent);
+
+
+
+                /*성공한경우
+                Intent intent=new Intent(ModelingActivity.this,ModelingSuccessActivity.class);
+                startActivity(intent);*/
 
                 /*실패한 경우
                 Intent intent=new Intent(ModelingActivity.this,ModelingFailActivity.class);
@@ -65,12 +71,9 @@ public class ModelingActivity extends AppCompatActivity{
                 finish();
                 return true;
             }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
+            case R.id.setting:{
+                Intent intent=new Intent(ModelingActivity.this,SettingActivity.class);
+                startActivity(intent);
                 break;
             }
         }

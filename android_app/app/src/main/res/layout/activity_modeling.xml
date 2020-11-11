@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,39 +23,56 @@
         >
 
         <TextView
+            android:id="@+id/guid_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="인체 모델을 만들기 위해 영상을 찍어주세요"
+            android:text="인체 모델링을 위한 영상 가이드"
             android:fontFamily="@font/barunpenb"
             android:textColor="@color/black"
             android:layout_centerHorizontal="true"
-            android:textSize="20dp"
-            android:layout_marginTop="25dp"
+            android:textSize="25dp"
+            android:layout_marginTop="50dp"
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/guidexplain_tv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="(안내 에니메이션)"
-            android:layout_centerInParent="true"
+            android:layout_below="@+id/guid_tv"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/textview_border"
             android:fontFamily="@font/barunpenb"
-            android:textSize="30dp"
-            />
+            android:text="\n 1. 촬영음이 들리면 제자리에서 한바퀴 돌으세요. \n\n 2. 휴대폰을 거치하고 2m 떨어진 곳에서 촬영해주세요\n\n 3. 촬영이 끝난 후 정지버튼을 눌러주세요.\n"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="18dp" />
 
-        <ImageButton
+        <Button
             android:id="@+id/videobutton"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
-            android:adjustViewBounds="true"
+            android:text="촬영"
+            android:fontFamily="@font/barunpenb"
             android:scaleType="centerInside"
             android:background="@drawable/button_background"
-            android:src="@drawable/ic_video" />
+           />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설명 이미지"
+            android:fontFamily="@font/barunpenb"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:layout_below="@id/guidexplain_tv"
+            />
     </RelativeLayout>
 
-
-
-
-</LinearLayout>
+</RelativeLayout>

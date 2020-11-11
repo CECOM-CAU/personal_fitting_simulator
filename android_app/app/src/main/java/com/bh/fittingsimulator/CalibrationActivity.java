@@ -10,6 +10,7 @@ import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CaptureRequest;
 import android.media.ImageReader;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +23,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bh.fittingsimulator.callback.MySessionCallback;
 import com.bh.fittingsimulator.callback.MySurfaceHolderCallback;
+
+import java.io.File;
 
 
 public class CalibrationActivity extends AppCompatActivity  {
@@ -39,6 +43,9 @@ public class CalibrationActivity extends AppCompatActivity  {
     public CaptureRequest.Builder mPreviewBuilder;
     public CameraCaptureSession mSession;
     public int mDSI_height, mDSI_width;
+
+    File sdcard = Environment.getExternalStorageDirectory();
+    File  file = new File(sdcard, "capture.jpg");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +60,10 @@ public class CalibrationActivity extends AppCompatActivity  {
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_calibration);
-        ImageButton button = findViewById(R.id.take_photo);
+        Button button = findViewById(R.id.take_photo);
+
+        mSurfaceView = findViewById(R.id.surfaceView);
+        initSurfaceView();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,9 +73,6 @@ public class CalibrationActivity extends AppCompatActivity  {
                 startActivity(intent);
             }
         });
-
-        mSurfaceView = findViewById(R.id.surfaceView);
-        initSurfaceView();
     }
 
     public void initSurfaceView() {

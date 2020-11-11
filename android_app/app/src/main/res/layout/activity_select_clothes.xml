@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/barunpenb"
             android:text="직접 입력"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:onClick="clickInputButton"
             android:layout_marginRight="5dp"
             android:background="@drawable/button_selected"/>
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/barunpenb"
             android:text="QR 코드"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:onClick="clickQrButton"
             android:background="@drawable/button_selected"/>
     </LinearLayout>
@@ -127,7 +127,7 @@
                 <RadioGroup
                     android:id="@+id/radiogroup"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:orientation="vertical"
@@ -160,7 +160,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
                     android:layout_below="@id/radiogroup"
-                    android:layout_marginTop="30dp"
                     >
 
                     <TextView
@@ -171,7 +170,7 @@
                         android:textSize="25dp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/barunpenb"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"></TextView>
 
@@ -179,7 +178,7 @@
                         android:id="@+id/top_ic"
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/title_tv"
                         android:src="@drawable/ic_top"/>
@@ -288,7 +287,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
                     android:layout_below="@id/radiogroup"
-                    android:layout_marginTop="30dp"
                     >
 
                     <TextView
@@ -299,7 +297,7 @@
                         android:textSize="25dp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/barunpenb"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"></TextView>
 
@@ -429,7 +427,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_below="@id/radiogroup"
-                        android:layout_marginTop="30dp"
                         >
 
                         <TextView
@@ -440,7 +437,7 @@
                             android:textSize="25dp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/barunpenb"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"></TextView>
 
@@ -546,7 +543,6 @@
                     android:id="@+id/dress_frame"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@id/radiogroup"
                     >
 
@@ -565,10 +561,10 @@
                     <ImageView
                         android:id="@+id/dress_ic"
                         android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_height="220dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/dress_title_tv"
+                        android:layout_marginTop="3dp"
                         android:src="@drawable/ic_dress"/>
 
                     <TextView
@@ -587,9 +583,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/dress_waring"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
                         android:stretchColumns="0,1,2,3">
 
                         <TableRow>

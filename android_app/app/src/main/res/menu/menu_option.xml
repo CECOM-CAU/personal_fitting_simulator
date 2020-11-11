@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item
-        android:id="@+id/menu_calib"
-        android:title="카메라 보정 다시하기"
+        android:id="@+id/setting"
+        android:title="설정"
         app:showAsAction="never"></item>
 
-
-    <item
-        android:id="@+id/menu_modeling"
-        android:title="모델링 다시하기"
-        app:showAsAction="never"/>
 </menu>

@@ -61,15 +61,13 @@ public class CalibrationExplainActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
+            case R.id.setting:{
+                Intent intent=new Intent(CalibrationExplainActivity.this,SettingActivity.class);
+                startActivity(intent);
                 break;
             }
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

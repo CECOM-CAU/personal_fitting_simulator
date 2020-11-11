@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,150,0,230);
+        params.setMargins(0,200,0,300);
         mGLView = new MyGLSurfaceView(this);
         mGLView.setLayoutParams(params);
         //mGLView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
@@ -75,12 +75,9 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
+            case R.id.setting:{
+                Intent intent=new Intent(MainActivity.this,SettingActivity.class);
+                startActivity(intent);
                 break;
             }
         }
