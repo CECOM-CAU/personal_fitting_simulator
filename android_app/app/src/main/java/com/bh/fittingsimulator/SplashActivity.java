@@ -39,7 +39,7 @@ public class SplashActivity extends Activity {
                 }*/
 
                 //파일 유무를 확인-내부저장소에 저장
-                File files = new File("/data/data/com.bh.fittingsimulator/dist.txt");
+                File files = new File("/sdcard/FittingSimulator/modeling.txt");
                 if(files.exists()==true) {
                     //파일 있을 때 - 메인으로 이동
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

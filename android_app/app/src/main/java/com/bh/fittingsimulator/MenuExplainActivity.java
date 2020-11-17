@@ -31,6 +31,7 @@ public class MenuExplainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MenuExplainActivity.this,MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

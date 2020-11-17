@@ -33,9 +33,6 @@ public class ModelingActivity extends AppCompatActivity{
         video_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //비디오 촬영
-                Toast.makeText(ModelingActivity.this, "비디오 촬영",Toast.LENGTH_SHORT).show();
-
                 Intent intent=new Intent(ModelingActivity.this, ModelingVideoActivity.class);
                 startActivity(intent);
 

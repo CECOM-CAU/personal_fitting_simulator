@@ -3,6 +3,7 @@ package com.bh.fittingsimulator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SettingActivity extends AppCompatActivity {
@@ -60,13 +62,19 @@ public class SettingActivity extends AppCompatActivity {
                         break;
                     }
                     case "데이터 초기화":{
-                        Toast.makeText(getApplicationContext(), "데이터 초기화", Toast.LENGTH_SHORT).show();
+                        String dir="FittingSimulator";
+                        //FittingSimulator 폴더 삭제
+                        removeDir(dir);
+                        Intent intent=new Intent(SettingActivity.this,CalibrationExplainActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
                     }
                 }
             }
         });
     }
+
 
     public void InitializeMovieData()
     {
@@ -86,6 +94,23 @@ public class SettingActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //폴더 삭제
+    public static void removeDir(String dirName) {
+        String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + dirName;
+
+        File file = new File(mRootPath);
+        File[] childFileList = file.listFiles();
+        for(File childFile : childFileList){
+            if(childFile.isDirectory()) {
+                removeDir(childFile.getAbsolutePath());    //하위 디렉토리
+            }
+            else{
+                childFile.delete();    //하위 파일 삭제
+            }
+        }
+        file.delete();    //root 삭제
     }
 }
 
