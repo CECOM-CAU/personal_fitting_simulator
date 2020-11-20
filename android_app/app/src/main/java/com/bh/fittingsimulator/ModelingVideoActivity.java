@@ -71,6 +71,7 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                     camera.lock();
                     recording = false;
 
+                    Toast.makeText(ModelingVideoActivity.this, "녹화가 종료되었습니다.", Toast.LENGTH_SHORT).show();
 
                     //다음 페이지로 넘어가기 -로딩 화면 추가??
                     Intent intent = new Intent(ModelingVideoActivity.this, ModelingSuccessActivity.class);
@@ -92,7 +93,7 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //Toast.makeText(ModelingVideoActivity.this, "녹화가 시작되었습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ModelingVideoActivity.this, "녹화가 시작되었습니다.", Toast.LENGTH_SHORT).show();
                             pose.setVisibility(View.GONE);
                             text.setVisibility(View.GONE);
                             try {

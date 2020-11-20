@@ -1,6 +1,7 @@
 package com.bh.fittingsimulator;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +14,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 public class SelectClothesActivity extends AppCompatActivity {
 
     private ArrayAdapter<CharSequence> adspin1,adspin2;
+    private IntentIntegrator qrScan;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,11 @@ public class SelectClothesActivity extends AppCompatActivity {
             }
         });
 
+        //설명 페이지에 있는 큐알코드 이미지 투명도 조절
+        Drawable qr_image=((ImageView)findViewById(R.id.ic_qr)).getDrawable();
+        qr_image.setAlpha(80);
+        qrScan= new IntentIntegrator(this);
+
         //레이아웃 변경 -qr_btn -qr코드 페이지
         qr_btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -55,8 +66,19 @@ public class SelectClothesActivity extends AppCompatActivity {
                 input_btn.setSelected(!input_btn.isSelected());
                 qr_btn.setSelected(!qr_btn.isSelected());
                 changeView(2);
+                //qrcode 스캔캔
+                Button scan = findViewById(R.id.scan_btn);
+                scan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        qrScan.setOrientationLocked(false); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
+                        qrScan.initiateScan();
+                    }
+                });
             }
         });
+
+
 
         //상의-확인 버튼 눌렀을때
         Button top_ok_btn=(Button) findViewById(R.id.top_ok_button);
@@ -271,5 +293,25 @@ public class SelectClothesActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //qr코드 스캔되었을때
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+                // todo
+            } else {
+                Toast.makeText(this, "Scanned:" + result.getContents(), Toast.LENGTH_LONG).show();
+                // todo
+                Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
