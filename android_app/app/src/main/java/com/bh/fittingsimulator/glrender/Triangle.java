@@ -16,11 +16,16 @@ public class Triangle {
     static private float RATIO=  LIMIT/ fv[0];
     static private float leg_len= fv[0]- fv[1]- fv[2]- fv[3]- fv[10];
     private final String vertexShaderCode =
-            "attribute vec4 vPosition;" +
+            "uniform mat4 uMVPMatrix;" +
+                    "attribute vec4 vPosition;" +
                     "void main() {" +
-                    "  gl_Position = vPosition;" +
+                    // the matrix must be included as a modifier of gl_Position
+                    // Note that the uMVPMatrix factor *must be first* in order
+                    // for the matrix multiplication product to be correct.
+                    "  gl_Position = uMVPMatrix * vPosition;" +
                     "}";
-
+    // Use to access and set the view transformation
+    private int mMVPMatrixHandle;
     private final String fragmentShaderCode =
             "precision mediump float;" +
                     "uniform vec4 vColor;" +
@@ -159,7 +164,7 @@ public class Triangle {
     private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
-    public void draw() {
+    public void draw(float[] mvpMatrix) {
         //렌더링 상태(Rendering State)의 일부분으로 program을 추가한다.
         GLES20.glUseProgram(mProgram);
 
@@ -181,7 +186,12 @@ public class Triangle {
         //triangle 렌더링시 사용할 색으로 color변수에 정의한 값을 사용한다.
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
 
+        //program 객체로부터 vertex shader 타입의 객체에 정의된 uMVPMatrix에 대한 핸들을 획득합니다.
+        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
+        //projection matrix와 camera view matrix를 곱하여 얻어진  mMVPMatrix 변수의 값을
+        // vertex shader 객체에 선언된 uMVPMatrix 멤버에게로 넘겨줍니다.
+        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
 
         //vertex 갯수만큼 tiangle을 렌더링한다.
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
