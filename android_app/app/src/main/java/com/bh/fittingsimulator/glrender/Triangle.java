@@ -1,5 +1,6 @@
 package com.bh.fittingsimulator.glrender;
 
+import java.lang.*;
 import android.opengl.GLES20;
 
 import java.nio.ByteBuffer;
@@ -8,6 +9,12 @@ import java.nio.FloatBuffer;
 
 
 public class Triangle {
+    static private float LIMIT=1.6f;
+
+    //0.키, 1.머리길이, 2.목길이, 3.목부터 어깨까지 수직길이, 4.어깨 길이, 5.팔 폭, 6.팔 길이, 7.겨드랑이 사이 길이, 8.배부분 폭, 9.가슴 폭, 10.어깨에서 골반까지, 11. 가슴에서 골반까지, 12. 배꼽에서 골반까지, 13.겨드랑이에서 가슴까지
+    static Float[] fv ={1630.0f,205.0f,75.0f,70.0f,385.0f,70.0f,530.0f,280.0f,250.0f,270.0f,460.0f,285.0f,105.0f,130.0f};
+    static private float RATIO=  LIMIT/ fv[0];
+    static private float leg_len= fv[0]- fv[1]- fv[2]- fv[3]- fv[10];
     private final String vertexShaderCode =
             "attribute vec4 vPosition;" +
                     "void main() {" +
@@ -23,14 +30,81 @@ public class Triangle {
 
     //float buffer 타입으로 vertexBuffer를 선언합니다.
     private FloatBuffer vertexBuffer;
-
     //0. float 배열에 삼각형의 vertex를 위한 좌표를 넣습니다.
     static final int COORDS_PER_VERTEX = 3;
+
     static float triangleCoords[] = {   //넣는 순서는 반시계 방향입니다.
-            0.0f,  0.622008459f, 0.0f, // 상단 vertex
-            -0.5f, -0.311004243f, 0.0f, // 왼쪽 아래 vertex
-            0.5f, -0.311004243f, 0.0f  // 오른쪽 아래 vertex
+        -fv[1]/2.0f*RATIO, fv[0]*RATIO-LIMIT/2.0f, 0.0f,    //a
+        -fv[1]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,  //b
+        fv[1]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,   //u
+        -fv[1]/2.0f*RATIO, fv[0]*RATIO-LIMIT/2.0f, 0.0f,                    //a
+        fv[1]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,   //u
+        fv[1]/2.0f*RATIO, fv[0]*RATIO-LIMIT/2.0f , 0.0f,                    //v
+
+        -fv[2]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,  //c
+        -fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,  //d
+        fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,   //s
+        -fv[2]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,  //c
+        fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,   //s
+        fv[2]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f , 0.0f,   //t
+
+        -fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,    //d
+        -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,    //e
+        fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
+        -fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,//d
+        fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
+        fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,//s
+
+        -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,    //e
+        -fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,//h
+        fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,//o
+        -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//e
+        fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,//o
+        fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
+
+        -fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,//h
+        -fv[9]/2.0f*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//i
+        fv[9]/2.0f*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//n
+        -fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,   //h
+        fv[9]/2.0f*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//n
+        fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,//o
+
+        -fv[9]/2.0f*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//i
+        -fv[8]/2.0f*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f,//j
+        fv[8]/2.0f*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f,//m
+        -fv[9]/2.0f*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//i
+        fv[8]/2.0f*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f,//m
+        fv[9]/2.0f*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//n
+
+        -fv[8]/2.0f*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f,//j
+        -fv[8]/2.0f*RATIO,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//k
+        fv[8]/2.0f*RATIO,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//l
+        -fv[8]/2.0f*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f,//j
+        fv[8]/2.0f*RATIO,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//l
+        fv[8]/2.0f*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f,//m
+
+        -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//e
+        (-fv[4]/2.0f-3.0f/5.0f* fv[6])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6])*RATIO-LIMIT/2.0f,0.0f,//f
+        (-fv[4]/2.0f-3.0f/5.0f* fv[6]+4.0f/5.0f* fv[5])*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6]-3.0f/5.0f* fv[5])*RATIO-LIMIT/2.0f,0.0f,//g
+        -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//e
+        (-fv[4]/2.0f-3.0f/5.0f* fv[6]+4.0f/5.0f* fv[5])*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6]-3.0f/5.0f* fv[5])*RATIO-LIMIT/2.0f,0.0f,//g
+        -fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,//h
+
+        fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,    //o
+        -(-fv[4]/2.0f-3.0f/5.0f* fv[6]+4.0f/5.0f* fv[5])*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6]-3.0f/5.0f* fv[5])*RATIO-LIMIT/2.0f,0.0f,    //p
+        -(-fv[4]/2.0f-3.0f/5.0f* fv[6])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6])*RATIO-LIMIT/2.0f,0.0f,//q
+        fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,    //o
+        -(-fv[4]/2.0f-3.0f/5.0f* fv[6])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6])*RATIO-LIMIT/2.0f,0.0f,//q
+        fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
     };
+    /*
+    for(int i=0; i<triangleCoords.length; i++){
+        if (i%3==0)
+            triangleCoords[i]*=RATIO;
+        else if(i%3==1)
+            triangleCoords[i]=triangleCoords[i]*RATIO-LIMIT/2;
+    }
+*/
 
     //red, green, blue, alpha 값을 float 배열 color에 넣습니다.
     float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
