@@ -42,7 +42,7 @@ public class Triangle {
     static float triangleCoords[] = {   //넣는 순서는 반시계 방향입니다.
 
          //정면
-           
+
         -fv[1]/2.0f*RATIO, fv[0]*RATIO-LIMIT/2.0f, 0.0f,    //a
         -fv[1]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,  //b
         fv[1]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,   //u
@@ -108,7 +108,7 @@ public class Triangle {
 
 
             //측면
-            /*
+/*
         -(sv[1]+sv[2])*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,//a
         -(sv[1]+sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,  //b
         -(sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,    //i
@@ -139,8 +139,8 @@ public class Triangle {
             -sv[7]*RATIO,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//f
             0.0f,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//g
             0.0f, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h
+*/
 
-             */
     };
     /*
     for(int i=0; i<triangleCoords.length; i++){
