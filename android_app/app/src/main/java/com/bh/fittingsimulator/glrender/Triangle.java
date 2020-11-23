@@ -1,11 +1,11 @@
 package com.bh.fittingsimulator.glrender;
 
-import android.content.SharedPreferences;
 import android.opengl.GLES20;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+
 
 public class Triangle {
     private final String vertexShaderCode =
@@ -20,46 +20,16 @@ public class Triangle {
                     "void main() {" +
                     "  gl_FragColor = vColor;" +
                     "}";
-    /***********/
-    public static float values[]={
-            1630.0f,//height
-            0f,//armhole
-            0f,//chest
-            0f,//shoulder to chest
-            0f,//waist
-            0f//chest to waist
-    };
-
-    static float RATIO= (float) (1.5/values[0]);
-    static float GROUND= (float) -0.75;
-    static float shoulder_width=values[2];
-    static float upperBody_len=values[3]+values[5];
-    static float head_len= (float) (upperBody_len*0.6);
-    static float neck_len= (float) (head_len*0.5);
-    static float Y_len=neck_len;
-    static float leg_len=upperBody_len*2-Y_len;
 
     //float buffer 타입으로 vertexBuffer를 선언합니다.
     private FloatBuffer vertexBuffer;
 
     //0. float 배열에 삼각형의 vertex를 위한 좌표를 넣습니다.
     static final int COORDS_PER_VERTEX = 3;
-    public static float triangleCoords[] = {   //넣는 순서는 반시계 방향입니다.
-            //shoulder to chest
-            -shoulder_width/2*RATIO,GROUND+(leg_len+Y_len+upperBody_len)*RATIO,0.0f,
-            -values[2]/2*RATIO,GROUND+(leg_len+Y_len+values[5])*RATIO,0.0f,
-            values[2]/2*RATIO,GROUND+(leg_len+Y_len+values[5])*RATIO,0.0f,
-            -shoulder_width/2*RATIO,GROUND+(leg_len+Y_len+upperBody_len)*RATIO,0.0f,
-            values[2]/2*RATIO,GROUND+(leg_len+Y_len+values[5])*RATIO,0.0f,
-            shoulder_width/2*RATIO,GROUND+(leg_len+Y_len+upperBody_len)*RATIO,0.0f,
-
-            //chest to waist
-            -values[2]/2*RATIO,GROUND+(leg_len+Y_len+values[5])*RATIO,0.0f,
-            -values[4]/2*RATIO,GROUND+(leg_len+Y_len)*RATIO,0.0f,
-            values[4]/2*RATIO,GROUND+(leg_len+Y_len)*RATIO,0.0f,
-            -values[2]/2*RATIO,GROUND+(leg_len+Y_len+values[5])*RATIO,0.0f,
-            values[4]/2*RATIO,GROUND+(leg_len+Y_len)*RATIO,0.0f,
-            values[2]/2*RATIO,GROUND+(leg_len+Y_len+values[5])*RATIO,0.0f,
+    static float triangleCoords[] = {   //넣는 순서는 반시계 방향입니다.
+            0.0f,  0.622008459f, 0.0f, // 상단 vertex
+            -0.5f, -0.311004243f, 0.0f, // 왼쪽 아래 vertex
+            0.5f, -0.311004243f, 0.0f  // 오른쪽 아래 vertex
     };
 
     //red, green, blue, alpha 값을 float 배열 color에 넣습니다.
@@ -67,8 +37,6 @@ public class Triangle {
     private final int mProgram;
 
     public Triangle() {
-
-
         //1.ByteBuffer를 할당 받습니다.
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 // (number of coordinate values * 4 bytes per float)

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,150,0,230);
+        params.setMargins(0,200,0,300);
         mGLView = new MyGLSurfaceView(this);
         mGLView.setLayoutParams(params);
         //mGLView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
@@ -73,15 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Intent intent=new Intent(MainActivity.this,CalibrationActivity.class);
+            case R.id.setting:{
+                Intent intent=new Intent(MainActivity.this,SettingActivity.class);
                 startActivity(intent);
-                finish();
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
                 break;
             }
         }

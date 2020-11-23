@@ -1,5 +1,6 @@
 package com.bh.fittingsimulator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -54,12 +55,9 @@ public class ModelingFailActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
+            case R.id.setting:{
+                Intent intent=new Intent(ModelingFailActivity.this,SettingActivity.class);
+                startActivity(intent);
                 break;
             }
         }

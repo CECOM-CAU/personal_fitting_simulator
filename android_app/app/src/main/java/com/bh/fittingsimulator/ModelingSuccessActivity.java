@@ -32,7 +32,7 @@ public class ModelingSuccessActivity extends AppCompatActivity {
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //메인 액티비티로 이동
+                //메인 액티비티 설명 레이아웃 보여준 후 메인 액티비티로 이동
                 Intent intent=new Intent(ModelingSuccessActivity.this,MenuExplainActivity.class);
                 startActivity(intent);
                 finish();
@@ -56,12 +56,9 @@ public class ModelingSuccessActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            case R.id.menu_calib:{
-                Toast.makeText(this, "캘리브레이션 이동", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.menu_modeling:{
-                Toast.makeText(this, "모델링 이동", Toast.LENGTH_SHORT).show();
+            case R.id.setting:{
+                Intent intent=new Intent(ModelingSuccessActivity.this,SettingActivity.class);
+                startActivity(intent);
                 break;
             }
         }
