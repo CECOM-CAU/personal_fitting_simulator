@@ -13,6 +13,7 @@ public class Triangle {
 
     //0.키, 1.머리길이, 2.목길이, 3.목부터 어깨까지 수직길이, 4.어깨 길이, 5.팔 폭, 6.팔 길이, 7.겨드랑이 사이 길이, 8.배부분 폭, 9.가슴 폭, 10.어깨에서 골반까지, 11. 가슴에서 골반까지, 12. 배꼽에서 골반까지, 13.겨드랑이에서 가슴까지
     static Float[] fv ={1630.0f,205.0f,75.0f,70.0f,385.0f,70.0f,530.0f,280.0f,250.0f,270.0f,460.0f,285.0f,105.0f,130.0f};
+    static Float[] sv={1630.0f,95.0f,5.0f,10.0f,180.0f,140.0f,135.0f,120.0f,205.0f};
     static private float RATIO=  LIMIT/ fv[0];
     static private float leg_len= fv[0]- fv[1]- fv[2]- fv[3]- fv[10];
     private final String vertexShaderCode =
@@ -39,6 +40,9 @@ public class Triangle {
     static final int COORDS_PER_VERTEX = 3;
 
     static float triangleCoords[] = {   //넣는 순서는 반시계 방향입니다.
+
+         //정면
+           
         -fv[1]/2.0f*RATIO, fv[0]*RATIO-LIMIT/2.0f, 0.0f,    //a
         -fv[1]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,  //b
         fv[1]/2.0f*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,   //u
@@ -101,6 +105,42 @@ public class Triangle {
         fv[7]/2.0f*RATIO,(leg_len+ fv[11]+ fv[13])*RATIO-LIMIT/2.0f,0.0f,    //o
         -(-fv[4]/2.0f-3.0f/5.0f* fv[6])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6])*RATIO-LIMIT/2.0f,0.0f,//q
         fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
+
+
+            //측면
+            /*
+        -(sv[1]+sv[2])*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,//a
+        -(sv[1]+sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,  //b
+        -(sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,    //i
+        -(sv[1]+sv[2])*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,   //a
+        -(sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,   //i
+        -(sv[2])*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,    //j
+
+            -(sv[1]+sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,  //b
+          0.0f, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f, //h
+            -(sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f, //i
+
+            -(sv[1]+sv[3])*RATIO,(fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f, //b
+            -sv[4]*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//c
+            0.0f, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h
+
+            -sv[4]*RATIO,(leg_len+ fv[11])*RATIO-LIMIT/2.0f,0.0f,//c
+            -sv[5]*RATIO,(leg_len+sv[8])*RATIO-LIMIT/2.0f,0.0f,//d
+            0.0f, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h
+
+            -sv[5]*RATIO,(leg_len+sv[8])*RATIO-LIMIT/2.0f,0.0f,//d
+            -sv[6]*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f,//e
+            0.0f, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h
+
+            -sv[6]*RATIO,(leg_len+ fv[12])*RATIO-LIMIT/2.0f,0.0f, //e
+            -sv[7]*RATIO,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//f
+            0.0f, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h
+
+            -sv[7]*RATIO,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//f
+            0.0f,(leg_len)*RATIO-LIMIT/2.0f,0.0f,//g
+            0.0f, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h
+
+             */
     };
     /*
     for(int i=0; i<triangleCoords.length; i++){
