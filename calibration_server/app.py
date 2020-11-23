@@ -6,6 +6,7 @@ import make_model
 import cv2
 import numpy as np
 import socket
+import video_openpose
 #import matplotlib.pyplot as plt
 from keras.models import load_model
 import test
@@ -113,56 +114,30 @@ def getModelData():
     #return '<h1>modelData = temp</h1>'
     return '<h1>GET methods</h1>'
 
-@app.route('/modelTest', methods=['GET'])
-def getModelTestPage():
-    return render_template("model_test.html")
-
-@app.route('/modelTest', methods=['POST'])
-def getModelTest():
+@app.route('/getModelData_test', methods=['POST','GET'])
+def getModelData_test():
     if request.method == 'POST':
         f = request.files['file']
-        f.save("imgs/" + secure_filename("testData.jpg"))
+        f.save("makemodel_temp/" + secure_filename(f.filename))
+        data = video_openpose.getModelData("makemodel_temp/" + secure_filename(f.filename))
+        arm_length = data[1][4]
+        body_length = data[1][0]
+        chest_length = data[1][1]
+        chestToBody_length = data[1][2]
+        chestToShoulder_length = data[1][3]
 
-        IMG_WIDTH, IMG_HEIGHT = 256, 256
-        IMG_PATH = 'imgs/testData.jpg'
-        model = load_model('unet.h5')
+        left_body_length = data[0][1]
+        left_chest_length = data[1][0]
 
-        img = cv2.imread(IMG_PATH, cv2.IMREAD_COLOR)
-        img_ori = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2RGB)
+        return '<h1>arm:' + str(arm_length) + '</h1>' + '<h1>body:' + str(body_length) + '</h1>' + '<h1>chest:' + str(
+            chest_length) + '</h1>' + '<h1>chestTobody:' + str(
+            chestToBody_length) + '</h1>' + '<h1>chestToShoulder:' + str(chestToShoulder_length) + '</h1>'+'<h1>left_body_length:' + str(left_body_length) + '</h1>'+'</h1>'+'<h1>left_chest_length:' + str(left_chest_length) + '</h1>'
 
-        #plt.figure(figsize=(16, 16))
-        #plt.imshow(img_ori)
 
-        img = test.preprocess(img)
-        input_img = img.reshape((1, IMG_WIDTH, IMG_HEIGHT, 3)).astype(np.float32) / 255
-        pred = model.predict(input_img)
+    else:
+        #return '<h1>modelData = temp</h1>'
+        return render_template("model_data_test.html")
 
-        mask = test.postprocess(img_ori, pred)
-
-        # plt.figure(figsize=(16, 16))
-        # plt.subplot(1, 2, 1)
-        # plt.imshow(pred[0, :, :, 1])
-        # plt.subplot(1, 2, 2)
-        # plt.imshow(mask)
-
-        converted_mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
-        result_img = cv2.subtract(converted_mask, img_ori)
-        result_img = cv2.subtract(converted_mask, result_img)
-        #plt.figure(figsize=(16, 16))
-        #plt.imshow(result_img)
-
-        #plt.figure(figsize=(16, 16))
-        return_img, arm_length, body_length,chest_length, chestToBody_length, chestToShoulder_length = test.calculatePose(result_img, peopleLength=1630)
-
-        cv2.imwrite('imgs/test.jpg', return_img)
-        print("arm_length="+str(arm_length))
-        print("body_length="+str(body_length))
-
-        #plt.imshow()
-        #plt.show()
-        return '<h1>arm:' + str(arm_length) + '</h1>' + '<h1>body:' + str(body_length) + '</h1>'+ '<h1>chest:' + str(chest_length) + '</h1>' +'<h1>chestTobody:' + str(chestToBody_length) + '</h1>' +'<h1>chestToShoulder:' + str(chestToShoulder_length) + '</h1>'
-
-    return '<h1>GET methods</h1>'
 
 if __name__ == '__main__':
     IP = str(socket.gethostbyname(socket.gethostname()))
