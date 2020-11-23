@@ -11,7 +11,7 @@
 .externalNativeBuild
 
 
-
+/calibration_server/test_image/*.*
 /calibration_server/skeleton_det/pose_iter_160000.caffemodel
 /calibration_server/calibration_chess/*
 /calibration_server/__pycache__/*

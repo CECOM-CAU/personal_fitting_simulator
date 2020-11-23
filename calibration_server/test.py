@@ -4,6 +4,52 @@ import numpy as np
 
 import os
 
+def getSegImage(img):
+    import tensorflow as tf
+    from tf_bodypix.api import download_model, load_model, BodyPixModelPaths
+    import cv2
+    import test
+    cv2.imwrite("temp.jpg",img)
+    bodypix_model = load_model(download_model(
+        # BodyPixModelPaths.MOBILENET_FLOAT_50_STRIDE_16
+        BodyPixModelPaths.MOBILENET_RESNET50_FLOAT_STRIDE_32
+
+    ))
+
+    image = tf.keras.preprocessing.image.load_img(
+        'temp.jpg'
+    )
+
+    image_array = tf.keras.preprocessing.image.img_to_array(image)
+    result = bodypix_model.predict_single(image_array)
+
+    mask = result.get_mask(threshold=0.6)
+    tf.keras.preprocessing.image.save_img(
+        'test_image/output-mask.jpg',
+        mask
+    )
+
+    """
+    IMG_WIDTH, IMG_HEIGHT = 256, 256
+    #IMG_PATH = 'imgs/testData.jpg'
+    model = load_model('unet.h5')
+
+    #img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+    img_ori = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2RGB)
+
+    img = preprocess(img)
+    input_img = img.reshape((1, IMG_WIDTH, IMG_HEIGHT, 3)).astype(np.float32) / 255
+    pred = model.predict(input_img)
+
+    mask = postprocess(img_ori, pred)
+
+    converted_mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+    result_img = cv2.subtract(converted_mask, img_ori)
+    result_img = cv2.subtract(converted_mask, result_img)
+    """
+    return cv2.imread("test_image/output-mask.jpg")
+
+
 def preprocess(img):
     IMG_WIDTH, IMG_HEIGHT = 256, 256
     im = np.zeros((IMG_WIDTH, IMG_HEIGHT, 3), dtype=np.uint8)
@@ -22,7 +68,7 @@ def preprocess(img):
     return im
 
 def postprocess(img_ori, pred):
-    THRESHOLD = 0.8
+    THRESHOLD = 0.9
     EROSION = 1
     h, w = img_ori.shape[:2]
     mask_ori = (pred.squeeze()[:, :, 1] > THRESHOLD).astype(np.uint8)
@@ -90,7 +136,7 @@ def output_keypoints(source_img,frame_drawn, proto_file, weights_file, threshold
     # 포인트 리스트 초기화
     points.clear()
 
-    print('│' + " POINT ".center(90, '─') + '│')
+    #print('│' + " POINT ".center(90, '─') + '│')
     for i in range(len(BODY_PARTS)):
 
         # 신체 부위의 confidence map
@@ -108,8 +154,8 @@ def output_keypoints(source_img,frame_drawn, proto_file, weights_file, threshold
             cv2.putText(frame_drawn, str(i), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 1, lineType=cv2.LINE_AA)
 
             points.append((x, y))
-            print('{0}│'.format(
-                f"│ [pointed] {BODY_PARTS[i]} ({i}) => prob: {prob:.5f} / x: {x} / y: {y}".ljust(91, ' ')))
+            #print('{0}│'.format(
+                #f"│ [pointed] {BODY_PARTS[i]} ({i}) => prob: {prob:.5f} / x: {x} / y: {y}".ljust(91, ' ')))
 
         else:  # [not pointed]
             cv2.circle(frame_drawn, (x, y), 5, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
@@ -117,20 +163,39 @@ def output_keypoints(source_img,frame_drawn, proto_file, weights_file, threshold
                         lineType=cv2.LINE_AA)
 
             points.append(None)
-            print('{0}│'.format(
-                f"│ [not pointed] {BODY_PARTS[i]} ({i}) => prob: {prob:.5f} / x: {x} / y: {y}".ljust(91, ' ')))
+            #print('{0}│'.format(
+                #f"│ [not pointed] {BODY_PARTS[i]} ({i}) => prob: {prob:.5f} / x: {x} / y: {y}".ljust(91, ' ')))
 
 def output_keypoints_with_lines(frame_drawn, POSE_PAIRS, delta, points):
-    print('│' + " LINK ".center(90, '─') + '│')
+    #print('│' + " LINK ".center(90, '─') + '│')
     for pair in POSE_PAIRS:
         part_a = pair[0]  # 0 (Head)
         part_b = pair[1]  # 1 (Neck)
         if points[part_a] and points[part_b]:
             delta[(part_a, part_b)] =  -1*(points[part_a][0] - points[part_b][0])/(points[part_a][1] - points[part_b][1]+0.00001)
-            print('{0}│'.format(f"│ [linked] {part_a} {points[part_a]} <=> {part_b} {points[part_b]}".ljust(91, ' ')))
+            #print('{0}│'.format(f"│ [linked] {part_a} {points[part_a]} <=> {part_b} {points[part_b]}".ljust(91, ' ')))
             cv2.line(frame_drawn, points[part_a], points[part_b], (0, 255, 0), 2)
-        else:
-            print('{0}│'.format(f"│ [not linked] {part_a} {points[part_a]} <=> {part_b} {points[part_b]}".ljust(91, ' ')))
+        #else:
+            #print('{0}│'.format(f"│ [not linked] {part_a} {points[part_a]} <=> {part_b} {points[part_b]}".ljust(91, ' ')))
+
+def extractPose(img,frame_drawn):
+    BODY_PARTS_BODY_25B = {0: "Nose", 1: "LEye", 2: "REye", 3: "LEar", 4: "REar", 5: "LShoulder", 6: "RSoulder",
+                           7: "LElbow", 8: "RElbow", 9: "LWrist", 10: "RWrist", 11: "LHip", 12: "RHip", 13: "LKnee",
+                           14: "RKnee", 15: "LAnkle", 16: "RAnkle", 17: "Neck", 18: "Head", 19: "LBigToe",
+                           20: "LSmallToe", 21: "LHeel", 22: "RBigToe", 23: "RSmallToe", 24: "RHeel"}
+    POSE_PAIRS_BODY_25B = [[0, 1], [0, 2], [0, 17], [0, 18], [1, 3], [2, 4], [5, 7], [5, 17],
+                           [6, 8], [6, 17], [7, 9], [8, 10], [11, 13], [11, 17], [12, 14], [12, 17],
+                           [13, 15], [14, 16], [15, 21], [16, 24], [19, 20], [20, 21], [22, 23], [23, 24]]
+
+    points = []
+    delta = {}
+
+    output_keypoints(source_img=img, frame_drawn=frame_drawn, proto_file='mpi.prototxt',
+                     weights_file='pose_iter_160000.caffemodel',
+                     threshold=0.02, BODY_PARTS=BODY_PARTS_BODY_25B, points=points)
+    output_keypoints_with_lines(frame_drawn=frame_drawn, POSE_PAIRS=POSE_PAIRS_BODY_25B, points=points, delta=delta)
+    length = ((points[24][1] - points[18][1]) + (points[21][1] - points[18][1])) / 2
+    return frame_drawn
 
 def calculatePose(img, frame_drawn = None, peopleLength = 1630):
 
@@ -145,8 +210,12 @@ def calculatePose(img, frame_drawn = None, peopleLength = 1630):
     points = []
     delta = {}
 
-    if frame_drawn == None :
+    if frame_drawn.all() == None :
         frame_drawn = img.copy()  # 텍스트 및 테두리가 그려질 프레임
+    else :
+        temp_height, temp_width, temp_channel = img.shape
+        print(img.shape)
+        img = cv2.resize(img, dsize=(temp_width,temp_height), interpolation=cv2.INTER_AREA)
 
     output_keypoints(source_img=img,frame_drawn=frame_drawn,proto_file='mpi.prototxt', weights_file='pose_iter_160000.caffemodel',
                      threshold=0.1, BODY_PARTS=BODY_PARTS_BODY_25B,points=points)
@@ -164,7 +233,7 @@ def calculatePose(img, frame_drawn = None, peopleLength = 1630):
     prev_bodyLength = 0
     chestToBodyLength = 0
     chestToShoulderLength = 0
-    y_count = 0;
+    y_count = 0
     for y in range(1,100):
         x_body = (points[12][0] + points[11][0]) // 2
         prev_y = points[12][1] - int(delta_10 * (y-1))
@@ -182,6 +251,8 @@ def calculatePose(img, frame_drawn = None, peopleLength = 1630):
             if np.array_equal(frame_drawn[y_body,x_body-10], np.array([0,0,0])):
                 point1 = [x_body,y_body]
                 break
+        if(x_body > 3000):
+            break
         x_body = (points[12][0] + points[11][0]) // 2
         prev_y = points[12][1] - int(delta_10 * (y - 1))
         prev_x = (points[12][0]+points[11][0])//2

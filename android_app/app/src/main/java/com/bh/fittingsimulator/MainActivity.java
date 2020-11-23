@@ -40,14 +40,12 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
-
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0,200,0,300);
         mGLView = new MyGLSurfaceView(this);
         mGLView.setLayoutParams(params);
         //mGLView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
         testLayout.addView(mGLView);
-
 
         //확인버튼
         ImageButton btn = findViewById(R.id.testbutton);
