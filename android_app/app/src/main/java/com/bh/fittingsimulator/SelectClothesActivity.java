@@ -1,5 +1,7 @@
 package com.bh.fittingsimulator;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ public class SelectClothesActivity extends AppCompatActivity {
 
     private ArrayAdapter<CharSequence> adspin1,adspin2;
     private IntentIntegrator qrScan;
+    private String[] clothes_data;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +93,8 @@ public class SelectClothesActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-                //상의 치수 변수들
+                //상의 치수 변수들 -> 서버로 보내기
+
                 /*
                 EditText top_shoulder=(EditText)findViewById(R.id.top_shoulder_et);//상의_어깨길이
                 Double.parseDouble(top_shoulder.getText().toString());//더블형
@@ -210,7 +214,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                             }
                             //치마 레이아웃 나타나기
                             if(adspin2.getItem(position).equals("치마")){
-                               //Toast.makeText(SelectClothesActivity.this, "치마 레이아웃 나타나기",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(SelectClothesActivity.this, "치마 레이아웃 나타나기",Toast.LENGTH_SHORT).show();
                                 top_frame.setVisibility(View.INVISIBLE);
                                 pants_frame.setVisibility(View.INVISIBLE);
                                 skirt_frame.setVisibility(View.VISIBLE);
@@ -295,6 +299,44 @@ public class SelectClothesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //수치대로 피팅하기
+    protected void Parser(String d){
+        clothes_data= d.split(",");
+        if(clothes_data!=null){
+            String mes="어께길이: "+clothes_data[0]+"\n팔길이: "+clothes_data[1]+"\n가슴길이: "+clothes_data[2]+"\n암홀: "+clothes_data[3]+"\n총기장: "+clothes_data[4]+"\n피팅하겠습니까?";
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Fittting Clothes");
+            builder.setMessage(mes);
+            builder.setPositiveButton("예",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+
+
+                            //서버로 수치 보내기
+
+
+                            Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton("아니오",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                            Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+            builder.show();
+        }
+
+        else
+            return;
+    }
+
     //qr코드 스캔되었을때
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -304,14 +346,17 @@ public class SelectClothesActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
                 // todo
             } else {
-                Toast.makeText(this, "Scanned:" + result.getContents(), Toast.LENGTH_LONG).show();
-                // todo
-                Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                //Toast.makeText(this, "Scanned:" + result.getContents(), Toast.LENGTH_LONG).show();
+                //내용 나눠서 저장하기
+                String num=result.getContents();
+                Parser(num);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+
+
+
 }

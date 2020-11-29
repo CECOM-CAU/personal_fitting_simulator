@@ -100,7 +100,7 @@ public class SettingActivity extends AppCompatActivity {
     public static void removeDir(String dirName) {
         String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + dirName;
 
-        File file = new File(mRootPath);
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/FittingSimulator");
         File[] childFileList = file.listFiles();
         for(File childFile : childFileList){
             if(childFile.isDirectory()) {
