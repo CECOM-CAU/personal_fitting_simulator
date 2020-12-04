@@ -300,10 +300,12 @@ public class SelectClothesActivity extends AppCompatActivity {
     }
 
     //수치대로 피팅하기
-    protected void Parser(String d){
+    protected void DataScan(String d){
         clothes_data= d.split(",");
         if(clothes_data!=null){
             String mes="어께길이: "+clothes_data[0]+"\n팔길이: "+clothes_data[1]+"\n가슴길이: "+clothes_data[2]+"\n암홀: "+clothes_data[3]+"\n총기장: "+clothes_data[4]+"\n피팅하겠습니까?";
+
+            //알림창 띄어서 보여주기
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Fittting Clothes");
             builder.setMessage(mes);
@@ -349,14 +351,11 @@ public class SelectClothesActivity extends AppCompatActivity {
                 //Toast.makeText(this, "Scanned:" + result.getContents(), Toast.LENGTH_LONG).show();
                 //내용 나눠서 저장하기
                 String num=result.getContents();
-                Parser(num);
+                DataScan(num);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-
-
 
 }
