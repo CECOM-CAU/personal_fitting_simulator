@@ -24,7 +24,7 @@ import com.bh.fittingsimulator.glrender.MyGLSurfaceView;
 public class MainActivity extends AppCompatActivity {
 
     private GLSurfaceView mGLView;
-    FrameLayout testLayout;
+    private FrameLayout testLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
