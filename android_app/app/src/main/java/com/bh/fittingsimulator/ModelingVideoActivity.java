@@ -5,13 +5,21 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.Image;
+import android.media.ImageReader;
 import android.media.MediaRecorder;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -25,14 +33,30 @@ import android.widget.Toast;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Text;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class ModelingVideoActivity extends AppCompatActivity implements SurfaceHolder.Callback {
@@ -44,7 +68,12 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
     private SurfaceHolder surfaceHolder;
     private boolean recording = false;
     private  File dir;
-    private String heightvalue; //키
+    private String heightvalue=""; //키
+
+    private SaveVideoTask saveVideoTask;
+
+    private int result=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +128,13 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
         });
         ad.show();
 
+
+
         btn_record = findViewById(R.id.surface_button);
         btn_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (recording) {
                     mediaRecorder.stop();
                     mediaRecorder.release();
@@ -111,8 +143,6 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
 
                     Toast.makeText(ModelingVideoActivity.this, "녹화가 종료되었습니다.", Toast.LENGTH_SHORT).show();
 
-                    //다음 페이지로 넘어가기 -로딩 화면 추가??
-                    Intent intent = new Intent(ModelingVideoActivity.this, ModelingSuccessActivity.class);
 
                     //시작 화면 메인 액티비티로 넘기기 위해 모델링 확인 파일 저장
                     File logFile = new File(dir +"/modeling.txt");
@@ -124,16 +154,26 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                         e.printStackTrace();
                     }
 
-                    startActivity(intent);
-                    finish();
 
+                    Log.v("result",Integer.toString(result));
+                    //성공시
+                    if(result==1){
+                        Intent intent = new Intent(ModelingVideoActivity.this, ModelingSuccessActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else{ //실패시
+                        Intent intent = new Intent(ModelingVideoActivity.this, ModelingFailActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
 
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ModelingVideoActivity.this, "녹화가 시작되었습니다.", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(ModelingVideoActivity.this, "녹화가 시작되었습니다.", Toast.LENGTH_SHORT).show();
                             pose.setVisibility(View.GONE);
                             text.setVisibility(View.GONE);
                             try {
@@ -150,6 +190,10 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                                 mediaRecorder.start();
                                 recording = true;
 
+                                //서버로 파일 보내기
+                                saveVideoTask=new SaveVideoTask();
+                                saveVideoTask.execute();
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 mediaRecorder.release();
@@ -159,10 +203,7 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                 }
             }
         });
-
     }
-
-
 
     PermissionListener permission = new PermissionListener() {
         @Override
@@ -204,9 +245,7 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
     }
 
     private void setCamera(Camera cam) {
-
         camera = cam;
-
     }
 
 
@@ -224,6 +263,45 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
 
         startActivity(intent);
         finish();*/
+    }
+
+
+    class SaveVideoTask extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected void onPostExecute(Integer aVoid) {
+            super.onPostExecute(aVoid);
+            //Toast.makeText(modelingVideoActivity, "동영상을 저장하였습니다.", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        protected Integer doInBackground(Void... data) {
+
+            Log.d("test","messagte");
+
+            Document doc;
+            String sUrl = "http://165.194.44.20/fileUpload";
+            String sUrl2 =  "http://10.0.2.2:5000/";
+
+            Elements element;
+            Connection.Response res;
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/FittingSimulator/modeling.mp4");
+            try {
+                res  = Jsoup.connect(sUrl).data("file",file.getName(), new FileInputStream(file)).data("height",heightvalue).method(Connection.Method.POST).execute();
+
+                element = res.parse().select("h1");
+                String returnString = element.get(0).text()+"#"+element.get(1).text();
+                Log.d("abc", returnString);
+                result=1;
+            } catch (IOException e) {
+                e.printStackTrace();
+                result=0;
+            }
+
+
+            return result;
+        }
+
+
     }
 }
 

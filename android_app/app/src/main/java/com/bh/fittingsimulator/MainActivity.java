@@ -56,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button clothesbtn = findViewById(R.id.clothesbutton);
+        clothesbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,FittingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //툴바 설정 메뉴 만들기

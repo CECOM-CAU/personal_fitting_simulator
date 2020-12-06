@@ -1,16 +1,29 @@
 package com.bh.fittingsimulator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ModelingActivity extends AppCompatActivity{
 
@@ -35,23 +48,10 @@ public class ModelingActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent=new Intent(ModelingActivity.this, ModelingVideoActivity.class);
                 startActivity(intent);
-
-
-
-                /*성공한경우
-                Intent intent=new Intent(ModelingActivity.this,ModelingSuccessActivity.class);
-                startActivity(intent);*/
-
-                /*실패한 경우
-                Intent intent=new Intent(ModelingActivity.this,ModelingFailActivity.class);
-                startActivity(intent);
-                 */
-
             }
         });
 
     }
-
 
     //툴바 설정 메뉴 만들기
     @Override
@@ -76,4 +76,5 @@ public class ModelingActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

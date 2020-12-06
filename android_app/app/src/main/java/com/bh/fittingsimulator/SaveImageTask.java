@@ -31,6 +31,7 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, Void> {
     public SaveImageTask(CalibrationActivity calibrationActivity) throws IOException {
         this.calibrationActivity = calibrationActivity;
     }
+
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
@@ -78,10 +79,7 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, Void> {
      */
 
 
-    public static final String insertImage(ContentResolver cr,
-                                           Bitmap source,
-                                           String title,
-                                           String description) {
+    public static final String insertImage(ContentResolver cr, Bitmap source, String title, String description) {
 
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, title);
@@ -129,11 +127,5 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, Void> {
 
         return stringUrl;
     }
-
-
-
-
-
-
 
 }

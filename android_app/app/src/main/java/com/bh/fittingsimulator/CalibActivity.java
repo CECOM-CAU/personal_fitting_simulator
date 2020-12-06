@@ -18,7 +18,6 @@ import android.widget.Button;
 
 public class CalibActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private static final String TAG = "android_camera_example";
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static final int CAMERA_FACING = Camera.CameraInfo.CAMERA_FACING_BACK; // Camera.CameraInfo.CAMERA_FACING_FRONT
@@ -49,7 +48,7 @@ public class CalibActivity extends AppCompatActivity implements ActivityCompat.O
         // 런타임 퍼미션 완료될때 까지 화면에서 보이지 않게 해야합니다.
         surfaceView.setVisibility(View.GONE);
 
-        Button button = findViewById(R.id.button_main_capture);
+        Button button = findViewById(R.id.take_photo);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +61,6 @@ public class CalibActivity extends AppCompatActivity implements ActivityCompat.O
                 }
             }
         });
-
-
 
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 
@@ -150,7 +147,6 @@ public class CalibActivity extends AppCompatActivity implements ActivityCompat.O
 
                         @Override
                         public void onClick(View view) {
-
                             finish();
                         }
                     }).show();
@@ -162,7 +158,6 @@ public class CalibActivity extends AppCompatActivity implements ActivityCompat.O
 
                         @Override
                         public void onClick(View view) {
-
                             finish();
                         }
                     }).show();
