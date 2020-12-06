@@ -260,7 +260,7 @@ def getFrontSize(frame_drawn,peopleLength=1630,points = []):
             x_body -= delta_x
             color = frame_drawn[y_body, x_body]
 
-            if not np.array_equal(frame_drawn[y_body, x_body - 10], np.array([255, 255, 255])):
+            if np.array_equal(frame_drawn[y_body, x_body - 10], np.array([0, 0, 0])):
                 point1 = [x_body, y_body]
                 break
             cv2.line(frame_drawn, (prev_x, prev_y), (x_body, y_body), (0, 255, 0), 2)
@@ -272,12 +272,11 @@ def getFrontSize(frame_drawn,peopleLength=1630,points = []):
 
         delta_x = -10
         while True:
-
             prev_y = y_body
             prev_x = x_body
             x_body -= delta_x
 
-            if not np.array_equal(frame_drawn[y_body, x_body + 10], np.array([255, 255, 255])):
+            if np.array_equal(frame_drawn[y_body, x_body + 10], np.array([0, 0, 0])):
                 point2 = [x_body, y_body]
                 break
             cv2.line(frame_drawn, (prev_x, prev_y), (x_body, y_body), (0, 255, 0), 2)
@@ -285,7 +284,7 @@ def getFrontSize(frame_drawn,peopleLength=1630,points = []):
         print("length(" + str(point1[0]) + "),(" + str(point2[0]) + ")=" + str(tempLength))
         if prev_bodyLength == 0:
             prev_bodyLength = tempLength
-        if y == 10:
+        if y == 5:
             bodyLength = tempLength
         if (tempLength - prev_bodyLength > 85):
             chestLength = prev_bodyLength
@@ -305,9 +304,10 @@ def getFrontSize(frame_drawn,peopleLength=1630,points = []):
     end_point = 9
     delta_100 = (points[end_point][0] - points[start_point][0]) / 100
     armLength = 0
-
-
+    prev_bodyLength = 0
+    x_count = 0
     for x in range(1, 100):
+        x_count += 1
         prev_x = points[start_point][0] + int(delta_100 * (x - 1))
         prev_y = points[start_point][1] + int(delta_100 * (x - 1) * -1 / delta[(start_point, end_point)])
         delta_x = 5
@@ -341,16 +341,23 @@ def getFrontSize(frame_drawn,peopleLength=1630,points = []):
                 break
 
             cv2.line(frame_drawn, (prev_x, prev_y), (x_7, y_7), (0, 255, 0), 2)
+        tempLength = np.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
+        if prev_bodyLength == 0:
+            prev_bodyLength = tempLength
+        if (tempLength - prev_bodyLength > 55):
+            armLength = prev_bodyLength
+            tempLength =  prev_bodyLength
+            armLength += tempLength
+            break
         armLength += np.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
-
-    armLength /= 99
+        prev_bodyLength = tempLength
+    armLength /= x_count
     print("arm length:" + str(armLength * pixelPerMM))
 
     returnList[0] = (bodyLength * pixelPerMM)
     returnList[1] = (chestLength * pixelPerMM)
     returnList[2]  = chestToBodyLength * pixelPerMM
     returnList[3]  = (chestToShoulderLength * pixelPerMM)
-
     returnList[4] = armLength * pixelPerMM
     cv2.imwrite("test_image/front.jpg", frame_drawn)
 
