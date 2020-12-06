@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        app:title="Fitting Simulator"
+        app:titleTextColor="@color/white"
+        android:backgroundTint="@color/violet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        >
+
+        <TextView
+            android:id="@+id/guid_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인체 모델링을 위한 영상 가이드"
+            android:fontFamily="@font/barunpenb"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:layout_marginTop="100dp"
+            />
+
+        <TextView
+            android:id="@+id/guidexplain_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/guid_tv"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/textview_border"
+            android:fontFamily="@font/barunpenb"
+            android:text="\n 1. 촬영음이 들리면 제자리에서 한바퀴 돌으세요. \n\n 2. 휴대폰을 거치하고 2m 떨어진 곳에서 촬영해주세요\n\n 3. 촬영이 끝난 후 정지버튼을 눌러주세요.\n\n4. 정면에서부터 천천히 돌아주세요.\n"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="100dp"
+            android:fontFamily="@font/barunpenb"
+            android:text="! 정면에서부터 천천히 돌지 않을 경우\n 인식에 실패할 수 있습니다"
+            android:textColor="@android:color/holo_red_light"
+            android:textAlignment="center"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/videobutton"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:text="촬영"
+            android:fontFamily="@font/barunpenb"
+            android:scaleType="centerInside"
+            android:background="@drawable/button_background"
+           />
+
+    </RelativeLayout>
+
+</RelativeLayout>
