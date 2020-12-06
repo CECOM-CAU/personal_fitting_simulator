@@ -1,14 +1,15 @@
 from keras.models import load_model
 import cv2
 import numpy as np
-
+from tf_bodypix.api import download_model, load_model, BodyPixModelPaths
+import cv2
 import os
 
 def getSegImage(img):
     import tensorflow as tf
-    from tf_bodypix.api import download_model, load_model, BodyPixModelPaths
-    import cv2
+
     import test
+
     cv2.imwrite("temp.jpg",img)
     bodypix_model = load_model(download_model(
         # BodyPixModelPaths.MOBILENET_FLOAT_50_STRIDE_16
@@ -23,7 +24,7 @@ def getSegImage(img):
     image_array = tf.keras.preprocessing.image.img_to_array(image)
     result = bodypix_model.predict_single(image_array)
 
-    mask = result.get_mask(threshold=0.6)
+    mask = result.get_mask(threshold=0.8)
     tf.keras.preprocessing.image.save_img(
         'test_image/output-mask.jpg',
         mask
@@ -32,7 +33,7 @@ def getSegImage(img):
     """
     IMG_WIDTH, IMG_HEIGHT = 256, 256
     #IMG_PATH = 'imgs/testData.jpg'
-    model = load_model('unet.h5')
+    model = load_model('net.h5')
 
     #img = cv2.imread(img_path, cv2.IMREAD_COLOR)
     img_ori = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2RGB)
@@ -46,10 +47,11 @@ def getSegImage(img):
     converted_mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
     result_img = cv2.subtract(converted_mask, img_ori)
     result_img = cv2.subtract(converted_mask, result_img)
-    """
+
+   
+    return result_img
+"""
     return cv2.imread("test_image/output-mask.jpg")
-
-
 def preprocess(img):
     IMG_WIDTH, IMG_HEIGHT = 256, 256
     im = np.zeros((IMG_WIDTH, IMG_HEIGHT, 3), dtype=np.uint8)

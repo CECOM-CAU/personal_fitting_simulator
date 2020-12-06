@@ -38,7 +38,7 @@ public class CalibrationExplainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Calibration Activity로 넘어가기
-                Intent intent=new Intent(CalibrationExplainActivity.this,CalibrationActivity.class);
+                Intent intent=new Intent(CalibrationExplainActivity.this,CalibActivity.class);
                 startActivity(intent);
             }
         });

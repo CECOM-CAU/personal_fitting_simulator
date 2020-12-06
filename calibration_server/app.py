@@ -127,11 +127,11 @@ def getModelData_test():
         chestToShoulder_length = data[1][3]
 
         left_body_length = data[0][1]
-        left_chest_length = data[1][0]
+        left_chest_length = data[0][0]
 
-        return '<h1>arm:' + str(arm_length) + '</h1>' + '<h1>body:' + str(body_length) + '</h1>' + '<h1>chest:' + str(
-            chest_length) + '</h1>' + '<h1>chestTobody:' + str(
-            chestToBody_length) + '</h1>' + '<h1>chestToShoulder:' + str(chestToShoulder_length) + '</h1>'+'<h1>left_body_length:' + str(left_body_length) + '</h1>'+'</h1>'+'<h1>left_chest_length:' + str(left_chest_length) + '</h1>'
+        return '<h1>arm:' + str(arm_length) + '</h1>' + '<h1>waist:' + str(body_length) + '</h1>' + '<h1>chest:' + str(
+            chest_length) + '</h1>' + '<h1>chestToWaist:' + str(
+            chestToBody_length) + '</h1>' + '<h1>chestToShoulder:' + str(chestToShoulder_length) + '</h1>'+'<h1>leftWaist_length:' + str(left_body_length) + '</h1>'+'</h1>'+'<h1>leftChest_length:' + str(left_chest_length) + '</h1>'
 
 
     else:

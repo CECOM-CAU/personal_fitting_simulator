@@ -1,35 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/white"
     >
 
     <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/toolbar"
+        app:title="Fitting Simulator"
+        app:titleTextColor="@color/white"
+        android:backgroundTint="@color/violet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimaryDark"
-        android:backgroundTint="@color/violet"
-        app:title="Fitting Simulator"
-        app:titleTextColor="@color/white" />
+        android:background="?attr/colorPrimaryDark"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:text="모델링 완성!"
             android:textSize="30dp"
             android:textStyle="bold"
             android:fontFamily="@font/barunpenb"
             android:layout_centerHorizontal="true"/>
+
 
 
         <Button
@@ -45,5 +48,4 @@
             />
 
     </RelativeLayout>
-
-</LinearLayout>
+</FrameLayout>

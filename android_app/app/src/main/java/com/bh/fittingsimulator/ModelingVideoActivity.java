@@ -1,7 +1,9 @@
 package com.bh.fittingsimulator;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
@@ -14,6 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +43,8 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private boolean recording = false;
+    private  File dir;
+    private String heightvalue; //키
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +52,11 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
         setContentView(R.layout.activity_modeling_video);
 
         //저장 폴더 만들기
-        final File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/FittingSimulator");
+        dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/FittingSimulator");
         if(!dir.exists()){
             dir.mkdirs();
         }
+
         final ImageView pose=(ImageView)findViewById(R.id.video_image);
         final TextView text=(TextView)findViewById(R.id.video_text);
 
@@ -60,6 +66,38 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                 .setDeniedMessage("권한이 거부되었습니다. 설정 > 권한에서 허용해주세요.")
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
                 .check();
+
+        pose.setVisibility(View.GONE);
+        text.setVisibility(View.GONE);
+
+        AlertDialog.Builder ad = new AlertDialog.Builder(ModelingVideoActivity.this);
+        ad.setTitle("");       // 제목 설정
+        ad.setMessage("모델링을 위해 사용자의 키(신장)값을 입력해주세요");   // 내용 설정
+        final EditText et = new EditText(ModelingVideoActivity.this);
+        ad.setView(et);
+        // 확인 버튼 설정
+        ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Text 값 받아서 로그 남기기
+                heightvalue = et.getText().toString();
+                dialog.dismiss();
+                pose.setVisibility(View.VISIBLE);
+                text.setVisibility(View.VISIBLE);
+            }
+        });
+        // 취소 버튼 설정
+        ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();     //닫기
+                Toast.makeText(ModelingVideoActivity.this, "키값이 입력되지 않아 녹화가 종료되었습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ModelingVideoActivity.this, ModelingActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        ad.show();
 
         btn_record = findViewById(R.id.surface_button);
         btn_record.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +127,8 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                     startActivity(intent);
                     finish();
 
+
+
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -113,7 +153,6 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 mediaRecorder.release();
-
                             }
                         }
                     });
@@ -122,6 +161,8 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
         });
 
     }
+
+
 
     PermissionListener permission = new PermissionListener() {
         @Override
@@ -176,7 +217,14 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        /*Toast.makeText(ModelingVideoActivity.this, "녹화가 종료되었습니다.", Toast.LENGTH_SHORT).show();
 
+        //다음 페이지로 넘어가기 -로딩 화면 추가??
+        Intent intent = new Intent(ModelingVideoActivity.this, ModelingSuccessActivity.class);
+
+        startActivity(intent);
+        finish();*/
     }
 }
+
 
