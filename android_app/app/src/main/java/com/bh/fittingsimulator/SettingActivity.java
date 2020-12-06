@@ -63,8 +63,10 @@ public class SettingActivity extends AppCompatActivity {
                     }
                     case "데이터 초기화":{
                         String dir="FittingSimulator";
+                        String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + dir;
                         //FittingSimulator 폴더 삭제
-                        removeDir(dir);
+                        removeDir(mRootPath);
+                        Toast.makeText(getApplicationContext(), "데이터 초기화가 완료되었습니다", Toast.LENGTH_LONG).show();
                         Intent intent=new Intent(SettingActivity.this,CalibrationExplainActivity.class);
                         startActivity(intent);
                         finish();
@@ -97,9 +99,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     //폴더 삭제
-    public static void removeDir(String dirName) {
-        String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + dirName;
-
+    public static void removeDir(String mRootPath) {
         File file = new File(mRootPath);
         File[] childFileList = file.listFiles();
         for(File childFile : childFileList){

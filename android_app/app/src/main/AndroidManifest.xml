@@ -22,6 +22,7 @@
         android:hardwareAccelerated="true"
         >
 
+        <activity android:name=".CalibActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".CalibrationActivity"></activity>
         <activity android:name=".PermissionActivity"></activity>
