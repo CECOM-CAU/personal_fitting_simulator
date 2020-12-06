@@ -10,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.bh.fittingsimulator.glrender.MyGLSurfaceView;
 
@@ -19,7 +21,7 @@ public class FittingActivity extends AppCompatActivity {
 
     private GLSurfaceView mGLView;
     private FrameLayout testLayout;
-    private float[] arr;
+    private double[] arr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,15 @@ public class FittingActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
+        arr=new double[]{0,0,0,0,0};
+
         Intent intent = getIntent();
-        arr = intent.getFloatArrayExtra("arr");
+        arr[0] = intent.getDoubleExtra("shoulder",0);
+        arr[1] = intent.getDoubleExtra("arm",0);
+        arr[2] = intent.getDoubleExtra("chest",0);
+        arr[3] = intent.getDoubleExtra("arm_width",0);
+        arr[4] = intent.getDoubleExtra("total_len",0);
+        //Toast.makeText(FittingActivity.this, Double.toString(arr[0]),Toast.LENGTH_SHORT).show();
 
 
         /*FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -47,11 +56,16 @@ public class FittingActivity extends AppCompatActivity {
         testLayout.addView(mGLView);*/
 
         //확인버튼
-        ImageButton btn = findViewById(R.id.testbutton);
+        Button btn = findViewById(R.id.testbutton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(FittingActivity.this,MainActivity.class);
+                intent.putExtra("shoulder",arr[0]);
+                intent.putExtra("arm",arr[1]);
+                intent.putExtra("chest",arr[2]);
+                intent.putExtra("arm_width",arr[3]);
+                intent.putExtra("total_len",arr[4]);
                 startActivity(intent);
             }
         });
