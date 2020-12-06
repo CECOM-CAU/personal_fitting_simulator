@@ -12,12 +12,15 @@ public class Triangle {
     static private float LIMIT=1.6f;
 
     //0.키, 1.머리길이, 2.목길이, 3.목부터 어깨까지 수직길이, 4.어깨 길이, 5.팔 폭, 6.팔 길이, 7.겨드랑이 사이 길이, 8.배부분 폭, 9.가슴 폭, 10.어깨에서 골반까지, 11. 가슴에서 골반까지, 12. 배꼽에서 골반까지, 13.겨드랑이에서 가슴까지
-    //static Float[] fv ={1630.0f,205.0f,75.0f,70.0f,385.0f,70.0f,530.0f,280.0f,250.0f,270.0f,460.0f,285.0f,105.0f,130.0f};
+    //static float[] fv ={1630.0f,205.0f,75.0f,70.0f,385.0f,70.0f,530.0f,280.0f,250.0f,270.0f,460.0f,285.0f,105.0f,130.0f};
     //new_minju
-    // static Float[] fv ={1630.0f,205.0f,75.0f,60.7f,339.8f,72.35f,542.1f,289.26f,240.3f,315.4f,483.0f,338.0f,278.4f,130.0f};
+     static float[] fv ={1630.0f,205.0f,75.0f,60.7f,339.8f,72.35f,542.1f,289.26f,240.3f,315.4f,483.0f,338.0f,278.4f,130.0f};
     //new_sanmin
-    static Float[] fv ={1730.0f,205.0f,75.0f,68.3f,567.7f,146.0f,533.5f,520.5f,357.9f,309.1f,543.0f,305.8f,299.3f,130.0f};
-    static Float[] sv={1630.0f,95.0f,5.0f,10.0f,180.0f,140.0f,135.0f,120.0f,205.0f};
+    //static float[] fv ={1730.0f,205.0f,75.0f,68.3f,567.7f,146.0f,533.5f,520.5f,357.9f,309.1f,543.0f,305.8f,299.3f,130.0f};
+    static float[] sv={1630.0f,95.0f,5.0f,10.0f,180.0f,140.0f,135.0f,120.0f,205.0f};
+    //0.null, 1.소매길이, 2. 총 길이, 3.어께, 4.소매폭 5.가슴폭
+    static float[] upper_c={0.0f,542.1f,338.0f,350.8f,90.0f,330.f};
+    static float c_arm_len =(upper_c[3]-fv[4])/2.0f+upper_c[1];
     static private float RATIO=  LIMIT/ fv[0];
     static private float leg_len= fv[0]- fv[1]- fv[2]- fv[3]- fv[10];
     private final String vertexShaderCode =
@@ -120,6 +123,38 @@ public class Triangle {
         -(-fv[4]/2.0f-3.0f/5.0f* fv[6])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6])*RATIO-LIMIT/2.0f,0.0f,//q
         fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
 
+            //upperbody clothes
+            //ders
+            -fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,    //d
+            -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,    //e
+            fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
+            -fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,//d
+            fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
+            fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,//s
+
+            //h"k'l'o"
+            -upper_c[5]/2.0f*RATIO,(fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h"
+            -upper_c[5]/2.0f*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-upper_c[2])*RATIO-LIMIT/2.0f,0.0f,//k'
+            upper_c[5]/2.0f*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-upper_c[2])*RATIO-LIMIT/2.0f,0.0f,//l'
+            -upper_c[5]/2.0f*RATIO,(fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//h"
+            upper_c[5]/2.0f*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-upper_c[2])*RATIO-LIMIT/2.0f,0.0f,//l'
+            upper_c[5]/2.0f*RATIO,(fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//o"
+
+        //ef'g'h'
+            -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,    //e
+            (-fv[4]/2.0f-3.0f/5.0f* c_arm_len)*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* c_arm_len)*RATIO-LIMIT/2.0f,0.0f,//f'
+            (-fv[4]/2.0f-3.0f/5.0f* c_arm_len +4.0f/5.0f* upper_c[4])*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* c_arm_len -3.0f/5.0f* upper_c[4])*RATIO-LIMIT/2.0f,0.0f,//g'
+            -fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,    //e
+            (-fv[4]/2.0f-3.0f/5.0f* c_arm_len +4.0f/5.0f* upper_c[4])*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* c_arm_len -3.0f/5.0f* upper_c[4])*RATIO-LIMIT/2.0f,0.0f,//g'
+            (-fv[4]/2.0f+4.0f/5.0f* upper_c[4])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-3.0f/5.0f* upper_c[4])*RATIO-LIMIT/2.0f,0.0f,//h'
+
+            //o'p'q'r
+            (fv[4]/2.0f-4.0f/5.0f* upper_c[4])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-3.0f/5.0f* upper_c[4])*RATIO-LIMIT/2.0f,0.0f, //o'
+            -(-fv[4]/2.0f-3.0f/5.0f* c_arm_len +4.0f/5.0f* upper_c[4])*RATIO,(fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* c_arm_len -3.0f/5.0f* upper_c[4])*RATIO-LIMIT/2.0f,0.0f,    //p'
+            -(-fv[4]/2.0f-3.0f/5.0f* c_arm_len )*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* c_arm_len )*RATIO-LIMIT/2.0f,0.0f,//q'
+            (fv[4]/2.0f-4.0f/5.0f* upper_c[4])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-3.0f/5.0f* upper_c[4])*RATIO-LIMIT/2.0f,0.0f, //o'
+            -(-fv[4]/2.0f-3.0f/5.0f* c_arm_len )*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* c_arm_len )*RATIO-LIMIT/2.0f,0.0f,//q'
+            fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
 
             //측면
 /*
