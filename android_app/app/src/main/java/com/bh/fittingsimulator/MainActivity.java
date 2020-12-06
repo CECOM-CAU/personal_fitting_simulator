@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GLSurfaceView mGLView;
     private FrameLayout testLayout;
+    private double[] arr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +63,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,FittingActivity.class);
+                intent.putExtra("shoulder",arr[0]);
+                intent.putExtra("arm",arr[1]);
+                intent.putExtra("chest",arr[2]);
+                intent.putExtra("arm_width",arr[3]);
+                intent.putExtra("total_len",arr[4]);
                 startActivity(intent);
             }
         });
+
+        arr=new double[]{0,0,0,0,0};
+        Intent intent = getIntent();
+        arr[0] = intent.getDoubleExtra("shoulder",0);
+        arr[1] = intent.getDoubleExtra("arm",0);
+        arr[2] = intent.getDoubleExtra("chest",0);
+        arr[3] = intent.getDoubleExtra("arm_width",0);
+        arr[4] = intent.getDoubleExtra("total_len",0);
+
+
     }
 
     //툴바 설정 메뉴 만들기
