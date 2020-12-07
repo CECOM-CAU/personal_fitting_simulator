@@ -19,8 +19,8 @@ public class Triangle {
     //static float[] fv ={1730.0f,205.0f,75.0f,68.3f,567.7f,146.0f,533.5f,520.5f,357.9f,309.1f,543.0f,305.8f,299.3f,130.0f};
     static float[] sv={1630.0f,95.0f,5.0f,10.0f,180.0f,140.0f,135.0f,120.0f,205.0f};
     //0.null, 1.소매길이, 2. 총 길이, 3.어께, 4.소매폭 5.가슴폭
-    static float[] upper_c={0.0f,542.1f,338.0f,350.8f,90.0f,330.f};
-    static float c_arm_len =(upper_c[3]-fv[4])/2.0f+upper_c[1];
+    //static float[] upper_c={0.0f,542.1f,338.0f,350.8f,90.0f,330.f};
+    //static float c_arm_len =(upper_c[3]-fv[4])/2.0f+upper_c[1];
     static private float RATIO=  LIMIT/ fv[0];
     static private float leg_len= fv[0]- fv[1]- fv[2]- fv[3]- fv[10];
     private final String vertexShaderCode =
@@ -122,7 +122,7 @@ public class Triangle {
             (fv[4]/2.0f-4.0f/5.0f* fv[5])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-3.0f/5.0f* fv[5])*RATIO-LIMIT/2.0f,0.0f, //o
         -(-fv[4]/2.0f-3.0f/5.0f* fv[6])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* fv[6])*RATIO-LIMIT/2.0f,0.0f,//q
         fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
-
+/*
             //upperbody clothes
             //ders
             -fv[2]/2.0f*RATIO, (fv[0]- fv[1]- fv[2])*RATIO-LIMIT/2.0f, 0.0f,    //d
@@ -155,7 +155,7 @@ public class Triangle {
             (fv[4]/2.0f-4.0f/5.0f* upper_c[4])*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-3.0f/5.0f* upper_c[4])*RATIO-LIMIT/2.0f,0.0f, //o'
             -(-fv[4]/2.0f-3.0f/5.0f* c_arm_len )*RATIO, (fv[0]- fv[1]- fv[2]- fv[3]-4.0f/5.0f* c_arm_len )*RATIO-LIMIT/2.0f,0.0f,//q'
             fv[4]/2.0f*RATIO, (fv[0]- fv[1]- fv[2]- fv[3])*RATIO-LIMIT/2.0f,0.0f,//r
-
+*/
             //측면
 /*
         -(sv[1]+sv[2])*RATIO, (fv[0]- fv[1])*RATIO-LIMIT/2.0f, 0.0f,//a
@@ -191,14 +191,7 @@ public class Triangle {
 
 */
     };
-    /*
-    for(int i=0; i<triangleCoords.length; i++){
-        if (i%3==0)
-            triangleCoords[i]*=RATIO;
-        else if(i%3==1)
-            triangleCoords[i]=triangleCoords[i]*RATIO-LIMIT/2;
-    }
-*/
+
 
     //red, green, blue, alpha 값을 float 배열 color에 넣습니다.
     float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };

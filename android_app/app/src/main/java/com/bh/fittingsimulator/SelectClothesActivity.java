@@ -31,7 +31,7 @@ public class SelectClothesActivity extends AppCompatActivity {
     private IntentIntegrator qrScan;
     private String[] clothes_data;
 
-    private double[] arr=new double[6];
+    private float[] arr=new float[6];
 
     private EditText top_shoulder, top_chest, top_arm, top_arm_width,top_total_len;
 
@@ -101,15 +101,15 @@ public class SelectClothesActivity extends AppCompatActivity {
 
                 //상의 치수 변수들 -> 서버로 보내기
                 try{
-                    arr[0]=Double.parseDouble(top_shoulder.getText().toString());//더블형
+                    arr[0]=Float.parseFloat(top_shoulder.getText().toString());
 
-                    arr[1]=Double.parseDouble(top_arm.getText().toString());//더블형
+                    arr[1]=Float.parseFloat(top_arm.getText().toString());
 
-                    arr[2]=Double.parseDouble(top_chest.getText().toString());//더블형
+                    arr[2]=Float.parseFloat(top_chest.getText().toString());
 
-                    arr[3]=Double.parseDouble(top_arm_width.getText().toString());//더블형
+                    arr[3]=Float.parseFloat(top_arm_width.getText().toString());
 
-                    arr[4]=Double.parseDouble(top_total_len.getText().toString());//더블형
+                    arr[4]=Float.parseFloat(top_total_len.getText().toString());
 
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
@@ -121,6 +121,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                 intent.putExtra("chest",arr[2]);
                 intent.putExtra("arm_width",arr[3]);
                 intent.putExtra("total_len",arr[4]);
+                System.out.println("!!!!!!!!!!!right after input c_data"+ arr[0]);
                 startActivity(intent);
 
             }
