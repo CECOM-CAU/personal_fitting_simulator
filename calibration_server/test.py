@@ -1,15 +1,13 @@
 from keras.models import load_model
 import cv2
 import numpy as np
-from tf_bodypix.api import download_model, load_model, BodyPixModelPaths
+#from tf_bodypix.api import download_model, load_model, BodyPixModelPaths
 import cv2
 import os
 
 def getSegImage(img):
-    import tensorflow as tf
 
-    import test
-
+    """
     cv2.imwrite("temp.jpg",img)
     bodypix_model = load_model(download_model(
         # BodyPixModelPaths.MOBILENET_FLOAT_50_STRIDE_16
@@ -29,12 +27,11 @@ def getSegImage(img):
         'test_image/output-mask.jpg',
         mask
     )
-
     """
     IMG_WIDTH, IMG_HEIGHT = 256, 256
     #IMG_PATH = 'imgs/testData.jpg'
-    model = load_model('net.h5')
-
+    #model = load_model('/home/yuhyeonwuk/project/personal_fitting_simulator/calibration_server/unet.h5')
+    model = load_model('/home/yuhyeonwuk/project/personal_fitting_simulator/calibration_server/unet_no_drop.h5')
     #img = cv2.imread(img_path, cv2.IMREAD_COLOR)
     img_ori = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2RGB)
 
@@ -50,8 +47,9 @@ def getSegImage(img):
 
    
     return result_img
-"""
-    return cv2.imread("test_image/output-mask.jpg")
+
+   # return cv2.imread("test_image/output-mask.jpg")
+
 def preprocess(img):
     IMG_WIDTH, IMG_HEIGHT = 256, 256
     im = np.zeros((IMG_WIDTH, IMG_HEIGHT, 3), dtype=np.uint8)
@@ -70,7 +68,7 @@ def preprocess(img):
     return im
 
 def postprocess(img_ori, pred):
-    THRESHOLD = 0.9
+    THRESHOLD = 0.4
     EROSION = 1
     h, w = img_ori.shape[:2]
     mask_ori = (pred.squeeze()[:, :, 1] > THRESHOLD).astype(np.uint8)
