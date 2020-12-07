@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -70,7 +71,7 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
     private  File dir;
     private String heightvalue=""; //키
 
-    private SaveVideoTask saveVideoTask;
+    //private SaveVideoTask saveVideoTask;
 
     private int result=0;
 
@@ -154,8 +155,13 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                         e.printStackTrace();
                     }
 
+                    Intent intent = new Intent(ModelingVideoActivity.this, LoadingActivity.class);
+                    intent.putExtra("height",heightvalue);
+                    startActivity(intent);
+                    finish();
 
-                    Log.v("result",Integer.toString(result));
+
+                   /* Log.v("result",Integer.toString(result));
                     //성공시
                     if(result==1){
                         Intent intent = new Intent(ModelingVideoActivity.this, ModelingSuccessActivity.class);
@@ -166,7 +172,7 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                         Intent intent = new Intent(ModelingVideoActivity.this, ModelingFailActivity.class);
                         startActivity(intent);
                         finish();
-                    }
+                    }*/
 
 
                 } else {
@@ -190,10 +196,6 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                                 mediaRecorder.start();
                                 recording = true;
 
-                                //서버로 파일 보내기
-                                saveVideoTask=new SaveVideoTask();
-                                saveVideoTask.execute();
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 mediaRecorder.release();
@@ -201,6 +203,14 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                         }
                     });
                 }
+                /*Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        //서버로 파일 보내기
+                        saveVideoTask = new SaveVideoTask();
+                        saveVideoTask.execute();
+                    }
+                }, 5000);*/
             }
         });
     }
@@ -271,7 +281,6 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
         @Override
         protected void onPostExecute(Integer aVoid) {
             super.onPostExecute(aVoid);
-            //Toast.makeText(modelingVideoActivity, "동영상을 저장하였습니다.", Toast.LENGTH_SHORT).show();
         }
         @Override
         protected Integer doInBackground(Void... data) {
@@ -285,6 +294,8 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
             Elements element;
             Connection.Response res;
             File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/FittingSimulator/modeling.mp4");
+            Log.v("file",file.getPath());
+
             try {
                 res  = Jsoup.connect(sUrl).data("file",file.getName(), new FileInputStream(file)).data("height",heightvalue).method(Connection.Method.POST).execute();
 
@@ -296,7 +307,6 @@ public class ModelingVideoActivity extends AppCompatActivity implements SurfaceH
                 e.printStackTrace();
                 result=0;
             }
-
 
             return result;
         }

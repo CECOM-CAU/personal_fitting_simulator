@@ -23,6 +23,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         >
 
+        <activity android:name=".LoadingActivity"></activity>
         <activity android:name=".FittingActivity"></activity>
         <activity android:name=".CalibActivity"></activity>
         <activity android:name=".MainActivity"></activity>

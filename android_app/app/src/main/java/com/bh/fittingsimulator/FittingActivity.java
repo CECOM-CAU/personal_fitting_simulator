@@ -21,7 +21,7 @@ public class FittingActivity extends AppCompatActivity {
 
     private GLSurfaceView mGLView;
     private FrameLayout testLayout;
-    private double[] arr;
+    private float[] arr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +37,14 @@ public class FittingActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
-        arr=new double[]{0,0,0,0,0};
+        arr=new float[]{0,0,0,0,0};
 
         Intent intent = getIntent();
-        arr[0] = intent.getDoubleExtra("shoulder",0);
-        arr[1] = intent.getDoubleExtra("arm",0);
-        arr[2] = intent.getDoubleExtra("chest",0);
-        arr[3] = intent.getDoubleExtra("arm_width",0);
-        arr[4] = intent.getDoubleExtra("total_len",0);
+        arr[0] = intent.getFloatExtra("shoulder",0);
+        arr[1] = intent.getFloatExtra("arm",0);
+        arr[2] = intent.getFloatExtra("chest",0);
+        arr[3] = intent.getFloatExtra("arm_width",0);
+        arr[4] = intent.getFloatExtra("total_len",0);
         //Toast.makeText(FittingActivity.this, Double.toString(arr[0]),Toast.LENGTH_SHORT).show();
 
 
