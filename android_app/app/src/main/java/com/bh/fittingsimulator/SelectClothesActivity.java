@@ -31,6 +31,10 @@ public class SelectClothesActivity extends AppCompatActivity {
     private IntentIntegrator qrScan;
     private String[] clothes_data;
 
+    private float[] arr=new float[6];
+
+    private EditText top_shoulder, top_chest, top_arm, top_arm_width,top_total_len;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_clothes);
@@ -81,7 +85,12 @@ public class SelectClothesActivity extends AppCompatActivity {
             }
         });
 
-
+        top_shoulder=(EditText)findViewById(R.id.top_shoulder_et);//상의_어깨길이
+        top_arm=(EditText)findViewById(R.id.top_arm_et);//상의_팔길이
+        top_chest=(EditText)findViewById(R.id.top_chest_et);//상의_가슴단면
+        top_arm_width=(EditText)findViewById(R.id.top_arm_width_et);//상의_소매폭
+        top_total_len=(EditText)findViewById(R.id.top_total_len_et);//상의_총길이
+        float number = 0;
 
         //상의-확인 버튼 눌렀을때
         Button top_ok_btn=(Button) findViewById(R.id.top_ok_button);
@@ -89,34 +98,31 @@ public class SelectClothesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //메인화면으로
-                Intent intent=new Intent(SelectClothesActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
 
                 //상의 치수 변수들 -> 서버로 보내기
+                try{
+                    arr[0]=Float.parseFloat(top_shoulder.getText().toString());//더블형
 
-                /*
-                EditText top_shoulder=(EditText)findViewById(R.id.top_shoulder_et);//상의_어깨길이
-                Double.parseDouble(top_shoulder.getText().toString());//더블형
-                //Integer.parseInt(top_shoulder.getText().toString());//정수형
+                    arr[1]=Float.parseFloat(top_arm.getText().toString());//더블형
 
-                EditText top_arm=(EditText)findViewById(R.id.top_arm_et);//상의_팔길이
-                Double.parseDouble(top_arm.getText().toString());//더블형
-                //Integer.parseInt(top_arm.getText().toString());//정수형
+                    arr[2]=Float.parseFloat(top_chest.getText().toString());//더블형
 
-                EditText top_chest=(EditText)findViewById(R.id.top_chest_et);//상의_가슴단면
-                Double.parseDouble(top_chest.getText().toString());//더블형
-                //Integer.parseInt(top_chest.getText().toString());//정수형
+                    arr[3]=Float.parseFloat(top_arm_width.getText().toString());//더블형
 
-                EditText top_arm_width=(EditText)findViewById(R.id.top_arm_width_et);//상의_소매폭
-                Double.parseDouble(top_arm_width.getText().toString());//더블형
-                //Integer.parseInt(top_arm_width.getText().toString());//정수형
+                    arr[4]=Float.parseFloat(top_total_len.getText().toString());//더블형
 
-                EditText top_total_len=(EditText)findViewById(R.id.top_total_len_et);//상의_총길이
-                Double.parseDouble(top_total_len.getText().toString());//더블형
-                //Integer.parseInt(top_total_len.getText().toString());//정수형
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                
+                Intent intent=new Intent(SelectClothesActivity.this, FittingActivity.class);
+                intent.putExtra("shoulder",arr[0]);
+                intent.putExtra("arm",arr[1]);
+                intent.putExtra("chest",arr[2]);
+                intent.putExtra("arm_width",arr[3]);
+                intent.putExtra("total_len",arr[4]);
+                startActivity(intent);
 
-                 */
             }
         });
         //바지-확인 버튼 눌렀을때

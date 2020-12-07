@@ -33,7 +33,9 @@ public class ModelingFailActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                //모델링 액티비티로 이동
-               Toast.makeText(ModelingFailActivity.this, "모델링 페이지로 이동하기",Toast.LENGTH_SHORT).show();
+               Intent intent=new Intent(ModelingFailActivity.this, ModelingActivity.class);
+               startActivity(intent);
+               finish();
            }
        });
 

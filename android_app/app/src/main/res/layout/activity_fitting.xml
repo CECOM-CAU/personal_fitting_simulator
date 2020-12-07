@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,30 +24,20 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="모델링 완성!"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:fontFamily="@font/barunpenb"
-            android:layout_centerHorizontal="true"/>
-
-
 
         <Button
-            android:id="@+id/ok_button"
-            android:background="@drawable/button_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/testbutton"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
             android:text="확인"
-            android:fontFamily="@font/barunpenb"
-            />
-
+            android:scaleType="centerInside"
+            android:elevation="3dp"
+            android:background="@drawable/button_background" />
     </RelativeLayout>
+
+
 </FrameLayout>
