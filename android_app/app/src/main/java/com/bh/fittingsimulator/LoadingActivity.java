@@ -1,6 +1,7 @@
 package com.bh.fittingsimulator;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,7 +25,7 @@ public class LoadingActivity extends AppCompatActivity {
 
     private SaveVideoTask saveVideoTask;
     private int result=0;
-    private String returnString0,returnString1, returnString2, returnString3, returnString4,returnString5,returnString6,returnString7,returnString8,returnString9;
+    private String[] returnString = new String[10];//,returnString1, returnString2, returnString3, returnString4,returnString5,returnString6,returnString7,returnString8,returnString9;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
@@ -97,21 +98,23 @@ public class LoadingActivity extends AppCompatActivity {
             Log.v("file", file.getPath());
 
             try {
-                res = Jsoup.connect(sUrl).data("file", file.getName(), new FileInputStream(file)).data("height", heightvalue).method(Connection.Method.POST).execute();
-
+                SharedPreferences points = getSharedPreferences("point", MODE_PRIVATE);
+                SharedPreferences.Editor editor = points.edit();
+                editor.putString("height",heightvalue);
+                res = Jsoup.connect(sUrl).data("file", file.getName(), new FileInputStream(file)).data("height", heightvalue).timeout(60000).method(Connection.Method.POST).execute();
                 //값 받아오기
                 element = res.parse().select("h1");
-                returnString0 = element.get(0).text();
-                returnString1 = element.get(1).text();
-                returnString2 = element.get(2).text();
-                returnString3 = element.get(3).text();
-                returnString4 = element.get(4).text();
-                returnString5 = element.get(5).text();
-                returnString6 = element.get(6).text();
-                returnString7 = element.get(7).text();
-                returnString8 = element.get(8).text();
-                returnString9 = element.get(9).text();
-                Log.d("abc", returnString0);
+                for(int i =0; i < 10; i++){
+                    returnString[i] = element.get(i).text();
+                    editor.putString("data"+String.valueOf(i), returnString[i]);
+                    Log.d("data"+String.valueOf(i),returnString[i]);
+                }
+                editor.commit(); //완료한다.
+                points = getSharedPreferences("point", MODE_PRIVATE);
+                for(int i = 0; i < 10; i++){
+                    Log.d("get_shared_data"+String.valueOf(i),points.getString("data"+String.valueOf(i),"1.0"));
+                }
+                Log.d("abc", returnString[0]);
 
             } catch (IOException e) {
                 e.printStackTrace();

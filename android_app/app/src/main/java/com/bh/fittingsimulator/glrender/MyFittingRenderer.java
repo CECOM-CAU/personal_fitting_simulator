@@ -8,27 +8,31 @@ import android.opengl.Matrix;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-class MyGLRenderer implements GLSurfaceView.Renderer {
+class MyFittingRenderer implements GLSurfaceView.Renderer {
     // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] mMVPMatrix = new float[16];
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
 
-    public MyGLRenderer(Activity activity){
-        super();
+    private ClothesOn mClothesOn;
+    private float[] c_data={0.0f,0.0f,0.0f,0.0f,0.0f};
+    Activity activity;
+    float[] c_data_param;
+    //GLSurfaceView가 생성되었을때 한번 호출되는 메소드입니다.
+    //OpenGL 환경 설정, OpenGL 그래픽 객체 초기화 등과 같은 처리를 할때 사용됩니다.
+    public MyFittingRenderer(float[] c_data_param, Activity activity){
+        this.c_data[0]=c_data_param[0];
+        this.c_data[1]=c_data_param[1];
+        this.c_data[2]=c_data_param[2];
+        this.c_data[3]=c_data_param[3];
+        this.c_data[4]=c_data_param[4];
+        this.c_data_param = c_data_param;
         this.activity = activity;
     }
 
-    private Triangle mTriangle;
-    Activity activity;
-    //GLSurfaceView가 생성되었을때 한번 호출되는 메소드입니다.
-    //OpenGL 환경 설정, OpenGL 그래픽 객체 초기화 등과 같은 처리를 할때 사용됩니다.
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        //mTriangle = new Triangle();
-
-        mTriangle = new Triangle(activity);
-
+        mClothesOn = new ClothesOn(c_data_param,activity);
         //color buffer를 클리어할 때 사용할 색을 지정합니다.
         //red, green, blue, alpha 순으로 0~1사이의 값을 지정합니다.
         //여기에서는 검은색으로 지정하고 있습니다.
@@ -49,7 +53,7 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
         //triangle를 그리는 처리를 하고 있느 draw메소드에 mMVPMatrix 변수를 넘겨준다.
-        mTriangle.draw(mMVPMatrix);
+        mClothesOn.draw(mMVPMatrix,this.c_data);
 
 
     }

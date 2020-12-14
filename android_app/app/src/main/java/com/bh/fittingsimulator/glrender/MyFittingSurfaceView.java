@@ -5,17 +5,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
-public class MyGLSurfaceView extends GLSurfaceView {
+public class MyFittingSurfaceView extends GLSurfaceView {
 
-    private final com.bh.fittingsimulator.glrender.MyGLRenderer mRenderer;
+    private final com.bh.fittingsimulator.glrender.MyFittingRenderer mRenderer;
 
-    public MyGLSurfaceView(Activity context){
+    public MyFittingSurfaceView(Activity context, float[] c_data){
         super(context);
 
         // OpenGL ES 2.0 context를 생성합니다.
         setEGLContextClientVersion(2);
-
-        mRenderer = new com.bh.fittingsimulator.glrender.MyGLRenderer(context);
+        System.out.println("!!!!!!!!!!!!! c_data at surfaceview "+c_data[0]);
+        mRenderer = new com.bh.fittingsimulator.glrender.MyFittingRenderer(c_data,context);
 
         // GLSurfaceView에 그래픽 객체를 그리는 처리를 하는 renderer를 설정합니다.
         setRenderer(mRenderer);

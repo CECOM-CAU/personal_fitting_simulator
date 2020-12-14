@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,11 +16,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bh.fittingsimulator.glrender.MyFittingSurfaceView;
 import com.bh.fittingsimulator.glrender.MyGLSurfaceView;
 
 public class FittingActivity extends AppCompatActivity {
 
-    private GLSurfaceView mGLView;
+    private MyFittingSurfaceView mFittingView;
+    private MyGLSurfaceView mGLView;
     private FrameLayout testLayout;
     private float[] arr;
 
@@ -37,16 +40,25 @@ public class FittingActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
-        arr=new float[]{0,0,0,0,0};
+
+        arr=new float[]{0.0f,0.0f,0.0f,0.0f,0.0f};
 
         Intent intent = getIntent();
-        arr[0] = intent.getFloatExtra("shoulder",0);
-        arr[1] = intent.getFloatExtra("arm",0);
-        arr[2] = intent.getFloatExtra("chest",0);
-        arr[3] = intent.getFloatExtra("arm_width",0);
-        arr[4] = intent.getFloatExtra("total_len",0);
+        arr[0] = intent.getFloatExtra("shoulder",0.0f);
+        arr[1] = intent.getFloatExtra("arm",0.0f);
+        arr[2] = intent.getFloatExtra("chest",0.0f);
+        arr[3] = intent.getFloatExtra("arm_width",0.0f);
+        arr[4] = intent.getFloatExtra("total_len",0.0f);
         //Toast.makeText(FittingActivity.this, Double.toString(arr[0]),Toast.LENGTH_SHORT).show();
 
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0,200,0,300);
+
+
+        /********/
+        mFittingView = new MyFittingSurfaceView(this,arr);
+        mFittingView.setLayoutParams(params);
+        testLayout.addView(mFittingView);
 
         /*FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0,200,0,300);
@@ -67,6 +79,7 @@ public class FittingActivity extends AppCompatActivity {
                 intent.putExtra("arm_width",arr[3]);
                 intent.putExtra("total_len",arr[4]);
                 startActivity(intent);
+
             }
         });
     }

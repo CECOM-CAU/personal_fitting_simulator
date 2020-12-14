@@ -47,7 +47,8 @@ public class SplashActivity extends Activity {
                     finish();
                 } else {
                     //파일 없을때 - 캘리브레이션으로 이동
-                    Intent intent = new Intent(getApplicationContext(), CalibrationExplainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    //Intent intent = new Intent(getApplicationContext(), CalibrationExplainActivity.class);
                     startActivity(intent);
                     finish();
                 }

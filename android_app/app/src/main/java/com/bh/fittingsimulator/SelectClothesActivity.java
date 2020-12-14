@@ -101,6 +101,7 @@ public class SelectClothesActivity extends AppCompatActivity {
 
                 //상의 치수 변수들 -> 서버로 보내기
                 try{
+
                     arr[0]=Float.parseFloat(top_shoulder.getText().toString());//더블형
 
                     arr[1]=Float.parseFloat(top_arm.getText().toString());//더블형
@@ -110,6 +111,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                     arr[3]=Float.parseFloat(top_arm_width.getText().toString());//더블형
 
                     arr[4]=Float.parseFloat(top_total_len.getText().toString());//더블형
+
 
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
@@ -121,6 +123,7 @@ public class SelectClothesActivity extends AppCompatActivity {
                 intent.putExtra("chest",arr[2]);
                 intent.putExtra("arm_width",arr[3]);
                 intent.putExtra("total_len",arr[4]);
+                System.out.println("!!!!!!!!!!!right after input c_data"+ arr[0]);
                 startActivity(intent);
 
             }
