@@ -118,21 +118,28 @@ def getModelData():
 def getModelData_test():
     if request.method == 'POST':
         f = request.files['file']
+        height = request.form['height']
+        print("height:" + str(height))
         f.save("makemodel_temp/" + secure_filename(f.filename))
-        data = video_openpose.getModelData("makemodel_temp/" + secure_filename(f.filename))
-        arm_length = data[1][4]
-        body_length = data[1][0]
-        chest_length = data[1][1]
-        chestToBody_length = data[1][2]
-        chestToShoulder_length = data[1][3]
+        data = video_openpose.getModelData("makemodel_temp/" + secure_filename(f.filename),height)
 
-        left_body_length = data[0][1]
-        left_chest_length = data[0][0]
+        neck_to_shoulder = str(data[1][0])
+        shoulder_length = str(data[1][1])
+        arm_length = str(data[1][2])
+        arm_long_length = str(data[1][3])
+        armpit_length = str(data[1][4])
+        shoulder_to_waist_length = str(data[1][5])
 
-        return '<h1>arm:' + str(arm_length) + '</h1>' + '<h1>waist:' + str(body_length) + '</h1>' + '<h1>chest:' + str(
+        chest_length = str(data[1][4])
+        stomach_length = str(data[1][6])
+        chest_to_waist_length = str(data[0][2])
+        stomach_to_waist_length = str(data[0][3])
+        return '<h1>' + neck_to_shoulder+'</h2>' +'<h1>' + shoulder_length+'</h2>' +'<h1>' +arm_length +'</h2>' +'<h1>' +arm_long_length +'</h2>' +'<h1>' + armpit_length+'</h2>' +'<h1>' +stomach_length +'</h2>' +'<h1>' +chest_length +'</h2>' +'<h1>' +  shoulder_to_waist_length+'</h2>' +'<h1>' + chest_to_waist_length +'</h2>' +'<h1>' + stomach_to_waist_length+'</h2>'
+
+        """return '<h1>arm:' + str(arm_length) + '</h1>' + '<h1>waist:' + str(body_length) + '</h1>' + '<h1>chest:' + str(
             chest_length) + '</h1>' + '<h1>chestToWaist:' + str(
             chestToBody_length) + '</h1>' + '<h1>chestToShoulder:' + str(chestToShoulder_length) + '</h1>'+'<h1>leftWaist_length:' + str(left_body_length) + '</h1>'+'</h1>'+'<h1>leftChest_length:' + str(left_chest_length) + '</h1>'
-
+"""
 
     else:
         #return '<h1>modelData = temp</h1>'
